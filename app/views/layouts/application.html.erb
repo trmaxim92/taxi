@@ -79,13 +79,15 @@
             <a href="<%= podklyuchenie_path %>/">Подключение</a>
             <a href="<%= trebovaniya_path %>/">Требования</a>
             <a href="<%= dokumenty_path %>/">Документы</a>
-            <a href="<%= faq_path %>/">FAQ</a>
             <a href="<%= goroda_path %>/">Города</a>
+            <a href="<%= faq_path %>/">FAQ</a>
             <a href="<%= kontakty_path %>/">Контакты</a>
-            <a href="<%= privacy_path %>/">Конфиденциальность</a>
-            <a href="<%= agreement_path %>/">Соглашение</a>
+            <a href="<%= privacy_path %>/">Политика обработки персональных данных</a>
+            <a href="<%= agreement_path %>/">Согласие на обработку персональных данных</a>
           </nav>
         </div>
+
+        <p class="footer-tagline">Таксопарк Космо — подключение водителей к заказам Яндекс Такси на собственных автомобилях.</p>
 
         <% if park_contacts? || registration_available? %>
           <div class="footer-contacts">
@@ -107,8 +109,8 @@
         <%= render "shared/legal_details" %>
 
         <p class="footer-disclaimer">
-          Сайт принадлежит <%= park_legal_name %> (бренд Космо) — сертифицированному партнёру Яндекс Такси.
-          Работа рассматривается только на собственном автомобиле водителя. Доход зависит от заказов, города, тарифа и расходов — гарантированную сумму заработка мы не обещаем.
+          Сайт принадлежит <%= park_legal_name.presence || "ООО «СкайСкейл»" %> и не является официальным сайтом Яндекса.
+          Яндекс Такси и Яндекс Про — сервисы компании Яндекс.
         </p>
       </div>
     </footer>

@@ -1,22 +1,19 @@
 <% if park_legal? || park_legal_name.present? %>
   <div class="legal-details">
     <% if park_legal_name.present? %>
-      <p class="legal-name"><%= park_legal_name %></p>
+      <p class="legal-name">Оператор сайта: <%= park_legal_name %></p>
     <% end %>
     <ul class="legal-meta">
       <% if park_ogrn.present? %>
-        <li>ОГРН <%= park_ogrn %><% if park_registered_on.present? %> от <%= park_registered_on %><% end %></li>
+        <li>ОГРН: <%= park_ogrn %><% if park_registered_on.present? %> от <%= park_registered_on %><% end %></li>
       <% end %>
-      <% if park_inn.present? || park_kpp.present? %>
-        <li>
-          <% if park_inn.present? %>ИНН <%= park_inn %><% end %>
-          <% if park_inn.present? && park_kpp.present? %> / <% end %>
-          <% if park_kpp.present? %>КПП <%= park_kpp %><% end %>
-        </li>
+      <% if park_inn.present? %>
+        <li>ИНН: <%= park_inn %></li>
       <% end %>
-      <% if park_registered_on.present? && park_ogrn.blank? %>
-        <li>Дата регистрации <%= park_registered_on %></li>
+      <% if park_kpp.present? %>
+        <li>КПП: <%= park_kpp %></li>
       <% end %>
+      <li>Бренд: Таксопарк Космо</li>
     </ul>
   </div>
 <% end %>

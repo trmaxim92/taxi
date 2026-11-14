@@ -20,9 +20,9 @@ class CitiesController < ApplicationController
     @cities = City.indexable.ordered
     set_seo_meta(
       @city,
-      title: @city.seo_title.presence || "Работа в Яндекс Такси #{@city.name_prepositional} — подключение водителей",
-      description: @city.seo_description.presence || "Подключение водителей Яндекс Такси #{@city.name_prepositional} на собственном автомобиле. Оставьте заявку онлайн.",
-      h1: @city.h1.presence || "Работа в Яндекс Такси #{@city.name_prepositional}",
+      title: @city.seo_title.presence || "Подключение к Яндекс Такси #{@city.name_prepositional} — Таксопарк Космо",
+      description: @city.seo_description.presence || "Подключение водителей Яндекс Такси #{@city.name_prepositional} через Таксопарк Космо. Работа на собственном автомобиле, условия сотрудничества и регистрация.",
+      h1: @city.h1.presence || "Подключение к Яндекс Такси #{@city.name_prepositional}",
       robots: @city.indexable? ? (@city.robots_meta.presence || "index,follow") : "noindex,follow"
     )
   end
