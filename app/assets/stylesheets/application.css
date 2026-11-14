@@ -608,8 +608,19 @@ input, select, textarea {
   gap: 1.5rem;
   align-items: start;
 }
+.form-wrap:has(.yandex-register),
+.form-wrap-yandex {
+  grid-template-columns: 1fr;
+  width: min(920px, 100%);
+  margin-inline: auto;
+}
 .form-intro { padding-top: 0.4rem; }
 .form-intro p { color: var(--muted); }
+.yandex-register .form-intro {
+  text-align: center;
+  max-width: 40rem;
+  margin: 0 auto 1.35rem;
+}
 .checkbox {
   display: flex;
   gap: 0.6rem;
@@ -1214,8 +1225,8 @@ input, select, textarea {
   width: 100%;
 }
 .yandex-register-frame-wrap {
+  width: 100%;
   margin: 0 auto;
-  max-width: 640px;
   border: 1px solid var(--line);
   border-radius: 22px;
   overflow: hidden;
@@ -1225,14 +1236,29 @@ input, select, textarea {
 .yandex-register-frame {
   display: block;
   width: 100%;
-  min-height: 640px;
-  height: 70vh;
-  max-height: 900px;
+  min-height: 680px;
+  height: clamp(640px, 75vh, 860px);
   border: 0;
   background: #fff;
 }
 .form-wrap-taxi .yandex-register-frame-wrap {
   box-shadow: none;
+  border: 0;
+  border-radius: 0;
+}
+@media (max-width: 720px) {
+  .form-wrap:has(.yandex-register),
+  .form-wrap-yandex {
+    width: 100%;
+  }
+  .form-wrap-taxi:has(.yandex-register) {
+    padding: 1.15rem;
+    border-radius: 18px;
+  }
+  .yandex-register-frame {
+    min-height: 620px;
+    height: 72vh;
+  }
 }
 .footer-disclaimer {
   margin: 0.85rem 0 0;
