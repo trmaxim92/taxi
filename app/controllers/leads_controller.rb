@@ -29,7 +29,7 @@ class LeadsController < ApplicationController
   private
 
   def lead_params
-    params.require(:lead).permit(:name, :phone, :city_id, :courier_type_id, :consent, :city_name, :courier_type_name)
+    params.require(:lead).permit(:name, :phone, :city_id, :courier_type_id, :consent, :city_name, :courier_type_name, :comment)
   end
 
   def rate_limited?

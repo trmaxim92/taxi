@@ -2,15 +2,26 @@
   <div class="container narrow prose">
     <h1><%= @page.h1.presence || @page.title %></h1>
     <% if @page.summary.present? %><p class="lead"><%= @page.summary %></p><% end %>
+
+    <% if @page.slug == "tarify" %>
+      <%= render "shared/tariffs", tariffs: Tariff.active.ordered %>
+    <% end %>
+
     <%= sanitize_content(@page.body) %>
 
     <% if @page.page_type == "contacts" || @page.slug == "kontakty" %>
-      <%= render "shared/park_contacts", title: "Контакты таксопарка Космо" %>
+      <%= render "shared/park_contacts", title: "Контакты Таксопарка Космо" %>
+      <%= render "shared/legal_details" %>
+    <% end %>
+
+    <% if @page.slug == "o-kompanii" %>
       <%= render "shared/legal_details" %>
     <% end %>
   </div>
 </article>
 
+
+<% unless %w[privacy agreement].include?(@page.slug) %>
 <section class="section section-soft" id="lead-form">
   <div class="container form-wrap form-wrap-taxi">
     <div class="form-intro">
@@ -25,6 +36,7 @@
     <%= render "shared/lead_form", cities: @cities, submit_label: "Оставить заявку" %>
   </div>
 </section>
+<% end %>
 
 <% if @faqs.any? %>
 <section class="section">

@@ -1,7 +1,7 @@
 class Page < ApplicationRecord
   PAGE_TYPES = %w[home content courier_type conditions park reviews contacts cities_index blog_index].freeze
   BLOCK_TYPES = %w[
-    hero heading text image advantages list steps reviews faq cta lead_form income_calculator related_links
+    hero heading text image advantages list steps reviews faq cta lead_form related_links
   ].freeze
 
   has_one_attached :og_image

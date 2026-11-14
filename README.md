@@ -4,7 +4,7 @@ SEO-сайт таксопарка **Космо**: привлечение вод�
 
 Стек: Ruby 3.4 · Rails 8 · PostgreSQL · Hotwire/Stimulus · Devise · Pundit · Propshaft.
 
-Сайт **не является** официальным сайтом Яндекса. Аренда авто не предлагается. Гарантированный доход не обещается.
+Таксопарк Космо — сертифицированный партнёр Яндекс Такси. Работа на собственном автомобиле. Гарантированный доход не обещается.
 
 ## Быстрый запуск (Docker)
 
@@ -25,8 +25,8 @@ docker compose exec web bundle exec rails taxi:seed_content
 ## Основные URL
 
 - `/` — главная
-- `/kak-ustroitsya/`, `/usloviya-raboty/`, `/rabota-na-svoem-avto/`, `/trebovaniya-k-voditelyam/`
-- `/avtomobili-dlya-taksi/`
+- `/podklyuchenie/`, `/usloviya-raboty/`, `/rabota-na-svoem-avto/`, `/trebovaniya/`
+- `/tarify/`, `/o-kompanii/`, `/dokumenty/`, `/faq/`
 - `/goroda/`
 - `/go/register` — реферальный redirect (или `self_register_url` в настройках)
 - `/sitemap.xml`, `/robots.txt`

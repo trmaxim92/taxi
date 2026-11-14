@@ -15,10 +15,23 @@ module ParkInfoHelper
     legal_registered_on
   ].freeze
 
+  COMMISSION_KEYS = %w[
+    park_commission_percent
+    withdrawal_fee_percent
+  ].freeze
+
   def park_setting(key, default = "")
     SiteSetting.get(key, default).to_s.strip
   rescue StandardError
     default.to_s
+  end
+
+  def park_commission_percent
+    park_setting("park_commission_percent", "2")
+  end
+
+  def withdrawal_fee_percent
+    park_setting("withdrawal_fee_percent", "1")
   end
 
   def park_phone
@@ -38,7 +51,7 @@ module ParkInfoHelper
   end
 
   def park_legal_name
-    park_setting("legal_name", "Космо")
+    park_setting("legal_name", "ООО «СкайСкейл»")
   end
 
   def park_ogrn

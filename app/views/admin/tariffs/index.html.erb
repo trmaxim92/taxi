@@ -1,0 +1,29 @@
+<div class="admin-head">
+  <h1>Тарифы парка</h1>
+  <%= link_to "Добавить", new_admin_tariff_path, class: "btn btn-primary" %>
+</div>
+
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>Позиция</th>
+      <th>Название</th>
+      <th>Значение</th>
+      <th>Тип</th>
+      <th>Активен</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @tariffs.each do |tariff| %>
+      <tr>
+        <td><%= tariff.position %></td>
+        <td><%= tariff.name %></td>
+        <td><%= tariff.display_value %></td>
+        <td><%= tariff.value_type %></td>
+        <td><%= tariff.active? ? "Да" : "Нет" %></td>
+        <td><%= link_to "Изменить", edit_admin_tariff_path(tariff) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

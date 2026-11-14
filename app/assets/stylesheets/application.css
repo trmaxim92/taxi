@@ -1,20 +1,24 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Unbounded:wght@600;700&display=swap");
 
 :root {
-  --yellow: #ffcc00;
-  --yellow-hover: #f0bf00;
-  --yellow-soft: #fff6cc;
-  --ink: #111111;
-  --muted: #66707a;
-  --line: #e8e8e8;
+  --brand-red: #be1623;
+  --brand-red-hover: #a4121d;
+  --brand-navy: #172d38;
+  --brand-light: #f5f4f2;
+  --yellow: #be1623;
+  --yellow-hover: #a4121d;
+  --yellow-soft: #f8e8ea;
+  --ink: #172d38;
+  --muted: #5a6a73;
+  --line: #e4e2de;
   --bg: #ffffff;
-  --bg-soft: #f5f5f5;
-  --dark: #121212;
-  --dark-2: #1a1a1a;
-  --danger: #c62828;
+  --bg-soft: #f5f4f2;
+  --dark: #172d38;
+  --dark-2: #1f3a48;
+  --danger: #be1623;
   --radius: 14px;
   --radius-lg: 22px;
-  --shadow: 0 12px 40px rgba(17, 17, 17, 0.06);
+  --shadow: 0 12px 40px rgba(23, 45, 56, 0.08);
   --font: "Manrope", sans-serif;
   --display: "Unbounded", "Manrope", sans-serif;
 }
@@ -112,10 +116,10 @@ button, input, select, textarea { font: inherit; }
 }
 .btn:hover { transform: translateY(-1px); }
 .btn-primary {
-  background: var(--yellow);
-  color: #111;
+  background: var(--brand-red);
+  color: #fff;
 }
-.btn-primary:hover { background: var(--yellow-hover); }
+.btn-primary:hover { background: var(--brand-red-hover); color: #fff; }
 .btn-secondary {
   background: #fff;
   color: #111;
@@ -775,12 +779,13 @@ input, select, textarea {
 
 /* —— Taxi landing theme —— */
 .theme-taxi {
-  --bg-soft: #f3f4f6;
-  --muted: #6b7280;
-  --line: #e6e7eb;
+  --bg-soft: var(--brand-light);
+  --muted: #5a6a73;
+  --line: #e4e2de;
   --radius: 18px;
-  --shadow: 0 18px 50px rgba(17, 17, 17, 0.08);
+  --shadow: 0 18px 50px rgba(23, 45, 56, 0.08);
   --display: "Manrope", sans-serif;
+  --ink: var(--brand-navy);
 }
 .theme-taxi .site-header {
   border-bottom: 0;
@@ -810,15 +815,18 @@ input, select, textarea {
   padding: 0;
   border-radius: 10px;
   font-size: 1.05rem;
-  background: #111;
-  color: var(--yellow);
-  box-shadow: 0 6px 16px rgba(17, 17, 17, 0.18);
+  background: var(--brand-red);
+  color: #fff;
+  box-shadow: 0 6px 16px rgba(190, 22, 35, 0.28);
 }
 .theme-taxi .btn-primary {
-  box-shadow: 0 10px 28px rgba(255, 204, 0, 0.28);
+  background: var(--brand-red);
+  color: #fff;
+  box-shadow: 0 10px 28px rgba(190, 22, 35, 0.28);
 }
 .theme-taxi .btn-primary:hover {
-  box-shadow: 0 14px 34px rgba(255, 204, 0, 0.38);
+  background: var(--brand-red-hover);
+  box-shadow: 0 14px 34px rgba(190, 22, 35, 0.38);
 }
 .theme-taxi .section {
   padding: 4.75rem 0;
@@ -1517,4 +1525,88 @@ input, select, textarea {
   .hero-taxi h1 { font-size: clamp(2.2rem, 10vw, 3.1rem); }
   .footer-taxi-top { align-items: flex-start; }
   .theme-taxi .nav { display: none; }
+  .tariff-grid { grid-template-columns: 1fr; }
+}
+
+/* —— Stage 2: tariffs, hero points, FAQ groups —— */
+.brand-hero {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.35rem, 2.4vw, 1.75rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--brand-red);
+}
+.hero-points {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 0.75rem;
+  list-style: none;
+  margin: 1.25rem 0 1.5rem;
+  padding: 0;
+}
+.hero-points li {
+  padding: 0.45rem 0.85rem;
+  border: 1px solid rgba(23, 45, 56, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--brand-navy);
+}
+.section-lead-early {
+  padding-top: 2.5rem;
+}
+.tariff-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem;
+  margin: 1.5rem 0 1rem;
+}
+.tariff-card {
+  padding: 1.5rem 1.6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #fff;
+}
+.tariff-label {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.tariff-value {
+  margin: 0.35rem 0 0.65rem;
+  font-size: clamp(2.4rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--brand-red);
+  line-height: 1;
+}
+.tariff-desc {
+  margin: 0;
+  color: var(--muted);
+}
+.tariff-note {
+  max-width: 46rem;
+  margin: 0 0 1.25rem;
+}
+.city-home-search {
+  display: block;
+  max-width: 360px;
+  margin: 0 0 1.25rem;
+}
+.faq-group {
+  margin-bottom: 2.5rem;
+}
+.faq-group h2 {
+  margin-bottom: 1rem;
+}
+.theme-taxi .btn-ghost {
+  border-color: rgba(23, 45, 56, 0.18);
+  color: var(--brand-navy);
+  background: rgba(255, 255, 255, 0.7);
+}
+.theme-taxi .btn-ghost:hover {
+  border-color: var(--brand-navy);
+  background: #fff;
 }

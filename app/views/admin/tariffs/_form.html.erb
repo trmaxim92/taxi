@@ -1,0 +1,12 @@
+<%= form_with model: [:admin, tariff], class: "lead-form" do |f| %>
+  <% if tariff.errors.any? %><div class="flash flash-alert"><%= tariff.errors.full_messages.to_sentence %></div><% end %>
+  <div class="form-grid">
+    <label>Название<%= f.text_field :name, required: true, placeholder: "Комиссия парка" %></label>
+    <label>Значение<%= f.text_field :value, required: true, placeholder: "2" %></label>
+    <label>Тип<%= f.select :value_type, Tariff::VALUE_TYPES %></label>
+    <label>Позиция<%= f.number_field :position %></label>
+  </div>
+  <label>Описание<%= f.text_area :description, rows: 3 %></label>
+  <label class="checkbox"><%= f.check_box :active %> Активен</label>
+  <%= f.submit "Сохранить", class: "btn btn-primary" %>
+<% end %>

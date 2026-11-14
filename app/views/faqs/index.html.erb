@@ -1,0 +1,35 @@
+<section class="section">
+  <div class="container narrow">
+    <div class="section-head">
+      <p class="eyebrow">FAQ</p>
+      <h1><%= seo_meta[:h1] %></h1>
+      <% if @page&.summary.present? %>
+        <p class="lead"><%= @page.summary %></p>
+      <% elsif @page&.body.present? %>
+        <div class="prose"><%= sanitize_content(@page.body) %></div>
+      <% else %>
+        <p class="lead">Ответы на частые вопросы о подключении к Яндекс Такси через Таксопарк Космо.</p>
+      <% end %>
+    </div>
+
+    <% @faq_groups.each do |group| %>
+      <div class="faq-group">
+        <h2><%= group[:title] %></h2>
+        <%= render "shared/faq", faqs: group[:faqs] %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+<section class="section section-soft" id="lead-form">
+  <div class="container form-wrap form-wrap-taxi">
+    <div class="form-intro">
+      <h2>Остались вопросы?</h2>
+      <p>Оставьте заявку — менеджер расскажет об условиях сотрудничества и поможет с подключением.</p>
+    </div>
+    <%= render "shared/lead_form",
+          cities: City.indexable.ordered,
+          selected_city_id: selected_city&.id,
+          submit_label: "Отправить заявку" %>
+  </div>
+</section>

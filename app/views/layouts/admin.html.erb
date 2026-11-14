@@ -2,7 +2,7 @@
 <html lang="ru">
   <head>
     <meta charset="utf-8">
-    <title>Админка — Космо</title>
+    <title>Админка — Таксопарк Космо</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="robots" content="noindex,nofollow">
     <%= csrf_meta_tags %>
@@ -13,12 +13,12 @@
   <body class="admin-body">
     <div class="admin-shell">
       <aside class="admin-sidebar">
-        <a class="brand" href="<%= admin_root_path %>">Космо</a>
+        <a class="brand" href="<%= admin_root_path %>">Таксопарк Космо</a>
         <nav>
           <a href="<%= admin_root_path %>">Dashboard</a>
           <a href="<%= admin_leads_path %>">Заявки</a>
           <a href="<%= admin_pages_path %>">Страницы</a>
-          <a href="<%= admin_vehicles_path %>">Автомобили</a>
+          <a href="<%= admin_tariffs_path %>">Тарифы</a>
           <a href="<%= admin_cities_path %>">Города</a>
           <a href="<%= admin_city_courier_pages_path %>">Город × тип (legacy)</a>
           <a href="<%= admin_courier_types_path %>">Типы (legacy)</a>

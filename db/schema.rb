@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_14_150001) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_14_170002) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -152,6 +152,7 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_14_150001) do
     t.string "ip_address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "comment"
     t.index ["city_id"], name: "index_leads_on_city_id"
     t.index ["courier_type_id"], name: "index_leads_on_courier_type_id"
     t.index ["created_at"], name: "index_leads_on_created_at"
@@ -270,6 +271,19 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_14_150001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["key"], name: "index_site_settings_on_key", unique: true
+  end
+
+  create_table "tariffs", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "value", null: false
+    t.string "value_type", default: "percent", null: false
+    t.text "description"
+    t.integer "position", default: 0, null: false
+    t.boolean "active", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["active"], name: "index_tariffs_on_active"
+    t.index ["position"], name: "index_tariffs_on_position"
   end
 
   create_table "users", force: :cascade do |t|

@@ -21,10 +21,13 @@
     <label class="form-span-2">Город
       <%= f.collection_select :city_id, cities, :id, :name, { include_blank: "Выберите город", selected: selected_city_id }, required: true %>
     </label>
+    <label class="form-span-2">Комментарий
+      <%= f.text_area :comment, rows: 3, placeholder: "Необязательно: удобное время звонка или вопрос" %>
+    </label>
   </div>
   <label class="checkbox">
     <%= f.check_box :consent, required: true %>
-    Согласен на обработку персональных данных
+    Согласен на <a class="text-link" href="<%= privacy_path %>/">обработку персональных данных</a>
   </label>
   <%= f.submit submit_label,
         class: "btn btn-primary",

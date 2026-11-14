@@ -2,60 +2,51 @@
   <div class="hero-taxi-bg" role="img" aria-label="Автомобиль Яндекс Такси на фоне города"></div>
   <div class="container hero-shell">
     <div class="hero-copy">
-      <h1>Работайте в Яндекс Такси<br>на своем автомобиле</h1>
-      <p class="lead">Подключитесь через таксопарк Космо. Выбирайте удобный график, принимайте заказы в Яндекс Про и управляйте своей работой.</p>
+      <p class="brand-hero">Таксопарк Космо</p>
+      <h1>Работа в Яндекс Такси на своём автомобиле</h1>
+      <p class="lead">Подключайтесь к Яндекс Такси через Таксопарк Космо. Понятные условия сотрудничества, комиссия парка <%= park_commission_percent %>% с заказа и <%= withdrawal_fee_percent %>% за вывод средств. Работа на собственном автомобиле в регионах России.</p>
+      <ul class="hero-points">
+        <li><%= park_commission_percent %>% комиссия парка</li>
+        <li><%= withdrawal_fee_percent %>% комиссия за вывод</li>
+        <li>Онлайн-подключение</li>
+        <li>Работа на своём автомобиле</li>
+      </ul>
       <div class="cta-row cta-row-split">
         <a class="btn btn-primary btn-lg" href="#lead-form" data-controller="analytics" data-analytics-event-value="lead_cta_click" data-action="click->analytics#track">Подключиться к Яндекс Такси</a>
-        <a class="btn btn-ghost btn-lg" href="<%= usloviya_raboty_path %>/">Узнать условия работы</a>
+        <a class="btn btn-ghost btn-lg" href="<%= tarify_path %>/">Узнать условия сотрудничества</a>
       </div>
-      <p class="hero-note">Оставьте заявку онлайн — поможем разобраться с подключением и ответим на вопросы.</p>
     </div>
   </div>
 </section>
 
-<section class="section" id="start">
-  <div class="container content-band">
-    <div class="content-band-copy">
-      <p class="eyebrow">С чего начать</p>
-      <h2>Работа в Яндекс Такси — как начать?</h2>
-      <p>Работа водителем в Яндекс Такси — это самостоятельная занятость на собственном автомобиле: вы выходите на линию, когда удобно, принимаете заказы в приложении Яндекс Про и контролируете свой график.</p>
-      <p>Чтобы подключиться, нужно соответствовать требованиям сервиса и законодательства, подготовить документы и убедиться, что автомобиль подходит под выбранный тариф. Таксопарк Космо помогает пройти оформление, разобраться с регистрацией и ответить на вопросы по сотрудничеству.</p>
-      <p>На сайте можно изучить <a class="text-link" href="<%= usloviya_raboty_path %>/">условия работы</a>, <a class="text-link" href="<%= trebovaniya_k_voditelyam_path %>/">требования к водителям</a>, <a class="text-link" href="<%= rabota_na_svoem_avto_path %>/">работу на своём авто</a>, <a class="text-link" href="<%= tarify_path %>/">тарифы</a> и <a class="text-link" href="<%= kak_ustroitsya_path %>/">пошаговую инструкцию</a>.</p>
-      <p class="cta-row">
-        <a class="btn btn-primary" href="#lead-form">Начать подключение</a>
-        <a class="text-link" href="<%= rabota_cherez_park_path %>/">О работе через Космо</a>
-      </p>
+<section class="section section-lead-early" id="lead-form">
+  <div class="container form-wrap form-wrap-taxi">
+    <div class="form-intro">
+      <h2>Заявка на подключение</h2>
+      <p>Оставьте контакты — менеджер расскажет об условиях и поможет пройти регистрацию.</p>
+      <% if registration_available? %>
+        <p class="cta-row">
+          <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
+        </p>
+      <% end %>
     </div>
+    <%= render "shared/lead_form",
+          cities: @cities,
+          selected_city_id: selected_city&.id,
+          submit_label: "Отправить заявку" %>
   </div>
 </section>
 
-<section class="section section-soft" id="kosmo">
-  <div class="container split-band">
-    <div>
-      <p class="eyebrow">Таксопарк Космо</p>
-      <h2>Условия сотрудничества с таксопарком Космо</h2>
-      <p>Космо — партнёрский таксопарк для водителей Яндекс Такси на собственном автомобиле. Мы помогаем с подключением, документами и стартом в Яндекс Про. Сайт не является официальным ресурсом Яндекса.</p>
-      <ul class="check-list">
-        <li>Сопровождение при регистрации и подготовке документов</li>
-        <li>Работа только на своём автомобиле — без аренды и автопарка компании</li>
-        <li>Поддержка по вопросам приложения и взаимодействия с парком</li>
-        <li>Коммерческие условия (комиссии и выплаты) уточняются до старта и редактируются в админке</li>
-      </ul>
-      <p class="muted">Конкретные ставки комиссии и график выплат публикуем только после подтверждения. До подтверждения не указываем цифры.</p>
-      <p class="cta-row">
-        <a class="btn btn-primary" href="<%= usloviya_raboty_path %>/">Условия работы</a>
-        <a class="text-link" href="<%= rabota_cherez_park_path %>/">Подробнее о парке</a>
-      </p>
+<section class="section" id="tariffs">
+  <div class="container">
+    <div class="section-head">
+      <p class="eyebrow">Тарифы</p>
+      <h2>Понятные условия сотрудничества</h2>
     </div>
-    <aside class="split-aside">
-      <h3>Полезные разделы</h3>
-      <ul>
-        <li><a href="<%= yandex_pro_path %>/">Приложение Яндекс Про</a></li>
-        <li><a href="<%= avtomobili_dlya_taksi_path %>/">Каталог автомобилей</a></li>
-        <li><a href="<%= goroda_path %>/">Города подключения</a></li>
-        <li><a href="<%= kontakty_path %>/">Контакты Космо</a></li>
-      </ul>
-    </aside>
+    <%= render "shared/tariffs", tariffs: @tariffs %>
+    <p class="cta-row">
+      <a class="btn btn-primary" href="<%= tarify_path %>/">Подробнее о тарифах</a>
+    </p>
   </div>
 </section>
 
@@ -63,99 +54,34 @@
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">Преимущества</p>
-      <h2>Преимущества работы</h2>
-      <p class="section-lead">Только собственный автомобиль, гибкий график и поддержка на подключении.</p>
+      <h2>Почему выбирают Таксопарк Космо</h2>
+      <p class="section-lead">Таксопарк для водителей Яндекс Такси, которые работают на собственном автомобиле.</p>
     </div>
     <div class="benefits-grid benefits-grid-6">
       <article class="benefit-item">
-        <span class="benefit-icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" width="40" height="40"><path d="M6 26l4-10h20l4 10" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><rect x="5" y="26" width="30" height="7" rx="2" fill="none" stroke="currentColor" stroke-width="2.4"/><circle cx="12" cy="33" r="2.4" fill="currentColor"/><circle cx="28" cy="33" r="2.4" fill="currentColor"/></svg>
-        </span>
-        <h3>Собственный автомобиль</h3>
-        <p>Используйте личный автомобиль, который соответствует требованиям выбранного тарифа.</p>
+        <h3>Прозрачные тарифы</h3>
+        <p>Комиссия парка <%= park_commission_percent %>% с заказа и <%= withdrawal_fee_percent %>% за вывод средств. Дополнительные удержания сервиса Яндекс Такси и налоги считаются отдельно — без скрытых «сюрпризов» со стороны парка.</p>
       </article>
       <article class="benefit-item">
-        <span class="benefit-icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" width="40" height="40"><rect x="8" y="10" width="24" height="22" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M8 16h24M16 8v4M24 8v4" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/></svg>
-        </span>
-        <h3>Свободный график</h3>
-        <p>Самостоятельно решайте, когда выходить на линию и сколько времени уделять заказам.</p>
+        <h3>Подключение онлайн</h3>
+        <p>Оставьте заявку на сайте: менеджер свяжется, расскажет об условиях сотрудничества и подскажет, какие этапы регистрации нужно пройти.</p>
       </article>
       <article class="benefit-item">
-        <span class="benefit-icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" width="40" height="40"><rect x="12" y="6" width="16" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="20" cy="28" r="1.8" fill="currentColor"/></svg>
-        </span>
-        <h3>Удобное приложение</h3>
-        <p>Заказы в Яндекс Про, режимы «Мой район» и «По делам», история дохода и поддержка в приложении.</p>
+        <h3>Работа на собственном автомобиле</h3>
+        <p>Подключаем водителей, которые работают на личном автомобиле и самостоятельно планируют выход на линию.</p>
       </article>
       <article class="benefit-item">
-        <span class="benefit-icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" width="40" height="40"><path d="M20 6l12 5v9c0 8-5.5 13.5-12 15-6.5-1.5-12-7-12-15V11l12-5z" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M14 20l4 4 8-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </span>
-        <h3>Поддержка</h3>
-        <p>Помощь по подключению, работе с приложением и взаимодействию с таксопарком Космо.</p>
+        <h3>Поддержка водителей</h3>
+        <p>Помогаем разобраться с документами, требованиями к автомобилю и стартом в приложении Яндекс Про — на этапе подключения и после активации профиля.</p>
       </article>
       <article class="benefit-item">
-        <span class="benefit-icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" width="40" height="40"><path d="M8 28V12a3 3 0 013-3h18a3 3 0 013 3v16" fill="none" stroke="currentColor" stroke-width="2.4"/><path d="M6 28h28M14 21h12" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
-        </span>
-        <h3>Онлайн-подключение</h3>
-        <p>Оставьте заявку на сайте и пройдите необходимые этапы регистрации.</p>
+        <h3>Работа через Яндекс Про</h3>
+        <p>Заказы, карта, история поездок и поддержка сервиса — в приложении Яндекс Про. После активации профиля выходите на линию на своём автомобиле.</p>
       </article>
       <article class="benefit-item">
-        <span class="benefit-icon" aria-hidden="true">
-          <svg viewBox="0 0 40 40" width="40" height="40"><path d="M10 28l6-16h8l6 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><path d="M14 20h12" stroke="currentColor" stroke-width="2.4"/><circle cx="14" cy="30" r="2.2" fill="currentColor"/><circle cx="26" cy="30" r="2.2" fill="currentColor"/></svg>
-        </span>
-        <h3>Разные тарифы</h3>
-        <p>Доступные тарифы зависят от автомобиля, города и требований сервиса.</p>
+        <h3>Подключение в регионах России</h3>
+        <p>Рассматриваем заявки из разных городов, где доступно подключение. Актуальный список опубликован в каталоге городов.</p>
       </article>
-    </div>
-  </div>
-</section>
-
-<section class="section" id="own-car">
-  <div class="container split-band">
-    <div>
-      <p class="eyebrow">Свой автомобиль</p>
-      <h2>Работа на собственном автомобиле</h2>
-      <p>Есть личный автомобиль и хотите использовать его для работы в такси? Подключение позволяет выполнять пассажирские заказы на своей машине — с учётом требований сервиса к году выпуска, модели, состоянию и комплектации.</p>
-      <p>Перед регистрацией проверьте соответствие автомобиля выбранному тарифу. Мы поможем разобраться с подключением и подскажем, какие сведения и документы понадобятся.</p>
-      <p class="cta-row">
-        <a class="btn btn-primary" href="<%= rabota_na_svoem_avto_path %>/">Проверить условия подключения</a>
-        <a class="text-link" href="<%= avtomobili_dlya_taksi_path %>/">Каталог автомобилей</a>
-      </p>
-    </div>
-    <aside class="split-aside">
-      <h3>Важно</h3>
-      <ul>
-        <li>Только собственный автомобиль водителя</li>
-        <li>Без аренды и автопарка компании</li>
-        <li>Требования зависят от тарифа и города</li>
-      </ul>
-    </aside>
-  </div>
-</section>
-
-<section class="section section-soft" id="requirements">
-  <div class="container content-band">
-    <div class="content-band-copy">
-      <p class="eyebrow">Документы</p>
-      <h2>Требования к водителям</h2>
-      <p>По информации сервиса Яндекс Про, для работы водителем обычно нужно соответствовать базовым условиям и требованиям законодательства. Актуальный список уточняйте перед подключением.</p>
-      <ul class="check-list">
-        <li>Возраст от 21 года (по данным сервиса)</li>
-        <li>Водительский стаж от 3 лет (по данным сервиса)</li>
-        <li>Уверенная работа с навигатором</li>
-        <li>Собственный автомобиль под выбранный тариф</li>
-        <li>Документы водителя и на автомобиль</li>
-        <li>Разрешение на деятельность такси / подходящий статус (самозанятость, ИП или договор с парком)</li>
-      </ul>
-      <p class="muted">
-        Ориентиры по возрасту и стажу — по данным официальной страницы
-        <a href="https://taxi.yandex.ru/rabota/driver/" target="_blank" rel="noopener noreferrer">taxi.yandex.ru/rabota/driver</a>
-        (актуализация сведений на сайте: <%= Date.current.strftime("%d.%m.%Y") %>). Условия могут отличаться по региону и тарифу.
-      </p>
-      <p class="cta-row"><a class="text-link" href="<%= trebovaniya_k_voditelyam_path %>/">Подробнее о требованиях</a></p>
     </div>
   </div>
 </section>
@@ -165,33 +91,47 @@
     <div class="how-panel">
       <div class="how-grid">
         <div class="how-copy">
-          <h2>Как начать работу?</h2>
+          <h2>Как подключиться к Яндекс Такси через Таксопарк Космо</h2>
           <ol class="how-steps">
             <li>
               <span class="how-num">1</span>
               <div>
-                <strong>Оставьте заявку</strong>
-                <p>Укажите телефон и город, в котором планируете работать.</p>
+                <strong>Оставить заявку</strong>
+                <p>Укажите имя, телефон и город, в котором планируете работать.</p>
               </div>
             </li>
             <li>
               <span class="how-num">2</span>
               <div>
-                <strong>Пройдите подключение</strong>
-                <p>Поможем с документами, разрешением на деятельность такси и регистрацией в Яндекс Про.</p>
+                <strong>Получить консультацию</strong>
+                <p>Менеджер расскажет об условиях сотрудничества и ответит на вопросы.</p>
               </div>
             </li>
             <li>
               <span class="how-num">3</span>
               <div>
-                <strong>Выходите на линию на своём авто</strong>
-                <p>После подключения принимайте заказы в Яндекс Про на собственном автомобиле.</p>
+                <strong>Подготовить документы</strong>
+                <p>Соберите документы водителя и автомобиля, а также сведения для оформления деятельности.</p>
+              </div>
+            </li>
+            <li>
+              <span class="how-num">4</span>
+              <div>
+                <strong>Пройти регистрацию и проверку</strong>
+                <p>Регистрация в Яндекс Про и проверка данных по правилам сервиса.</p>
+              </div>
+            </li>
+            <li>
+              <span class="how-num">5</span>
+              <div>
+                <strong>Получить доступ к работе</strong>
+                <p>После активации профиля принимайте заказы на своём автомобиле.</p>
               </div>
             </li>
           </ol>
           <p class="cta-row">
-            <a class="btn btn-primary btn-lg" href="#lead-form">Оставить заявку</a>
-            <a class="text-link" href="<%= kak_ustroitsya_path %>/">Полная инструкция</a>
+            <a class="btn btn-primary btn-lg" href="#lead-form">Подключиться</a>
+            <a class="text-link" href="<%= podklyuchenie_path %>/">Подробная инструкция</a>
           </p>
         </div>
 
@@ -221,19 +161,63 @@
   </div>
 </section>
 
+<section class="section section-soft" id="own-car">
+  <div class="container split-band">
+    <div>
+      <p class="eyebrow">Свой автомобиль</p>
+      <h2>Работайте в Яндекс Такси на своём автомобиле</h2>
+      <p>Личный автомобиль даёт самостоятельность: вы планируете график, выбираете доступный тариф Яндекс Такси и несёте ответственность за состояние машины.</p>
+      <p>На сайте Таксопарка Космо рассматривается только работа на собственном автомобиле водителя.</p>
+      <ul class="check-list">
+        <li>Использование личного автомобиля</li>
+        <li>Самостоятельное планирование графика</li>
+        <li>Требования к автомобилю зависят от тарифа и региона</li>
+        <li>Выбор доступного тарифа Яндекс Такси после проверки машины</li>
+      </ul>
+      <p class="cta-row">
+        <a class="btn btn-primary" href="<%= rabota_na_svoem_avto_path %>/">Подробнее о работе на своём авто</a>
+        <a class="text-link" href="<%= trebovaniya_path %>/">Требования</a>
+      </p>
+    </div>
+    <aside class="split-aside">
+      <h3>Важно</h3>
+      <ul>
+        <li>Только собственный автомобиль водителя</li>
+        <li>Подключение через Таксопарк Космо</li>
+        <li>Сертифицированный партнёр Яндекс Такси</li>
+      </ul>
+    </aside>
+  </div>
+</section>
+
 <% if @featured_cities.any? %>
-<section class="section section-soft" id="cities">
+<section class="section" id="cities" data-controller="city-filter">
   <div class="container">
     <div class="section-head section-head-row">
       <div>
-        <h2>Работа в Яндекс Такси в вашем городе</h2>
-        <p class="section-lead">Подключение доступно в разных регионах России. Выберите город, чтобы узнать больше об условиях.</p>
+        <h2>Подключение водителей по России</h2>
+        <p class="section-lead">Города, в которых доступно подключение через Таксопарк Космо.</p>
       </div>
-      <a class="text-link" href="<%= goroda_path %>/">Все города</a>
+      <a class="text-link" href="<%= goroda_path %>/">Полный каталог городов</a>
     </div>
+
+    <label class="city-select-label city-home-search">
+      Найти город
+      <input type="search"
+             class="city-combobox-input"
+             placeholder="Начните вводить название"
+             data-action="input->city-filter#filter"
+             data-city-filter-target="input"
+             autocomplete="off">
+    </label>
+
+    <p class="eyebrow">Популярные регионы</p>
     <div class="city-chip-row">
       <% @featured_cities.each do |city| %>
-        <a class="city-chip" href="<%= gorod_path(city) %>/"><%= city.name %></a>
+        <a class="city-chip"
+           href="<%= gorod_path(city) %>/"
+           data-city-filter-item
+           data-name="<%= city.name %>"><%= city.name %></a>
       <% end %>
     </div>
   </div>
@@ -241,11 +225,12 @@
 <% end %>
 
 <% if @faqs.any? %>
-<section class="section" id="faq">
+<section class="section section-soft" id="faq">
   <div class="container narrow">
     <div class="section-head">
       <p class="eyebrow">FAQ</p>
-      <h2>Часто задаваемые вопросы</h2>
+      <h2>Частые вопросы</h2>
+      <p class="section-lead"><a class="text-link" href="<%= faq_path %>/">Все вопросы и ответы</a></p>
     </div>
     <%= render "shared/faq", faqs: @faqs %>
   </div>
@@ -255,30 +240,12 @@
 <section class="section join-band" id="join">
   <div class="container join-inner">
     <div class="join-copy">
-      <h2>Подключайтесь к Яндекс Такси через Космо</h2>
-      <p>Работайте на собственном автомобиле со свободным графиком — поможем с подключением и ответим на вопросы.</p>
-      <a class="btn btn-primary btn-lg" href="#lead-form">Стать водителем</a>
+      <h2>Готовы начать работать с Таксопарком Космо?</h2>
+      <p>Оставьте заявку на подключение к Яндекс Такси. Наш менеджер расскажет об условиях сотрудничества и поможет пройти необходимые этапы регистрации.</p>
+      <a class="btn btn-primary btn-lg" href="#lead-form">Подключиться</a>
     </div>
     <div class="join-media">
       <img src="/images/join-skyline.png" alt="" width="1200" height="400">
     </div>
-  </div>
-</section>
-
-<section class="section" id="lead-form">
-  <div class="container form-wrap form-wrap-taxi">
-    <div class="form-intro">
-      <h2>Подключиться к Яндекс Такси</h2>
-      <p>Оставьте контакты — поможем с подключением через таксопарк Космо.</p>
-      <% if registration_available? %>
-        <p class="cta-row">
-          <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
-        </p>
-      <% end %>
-    </div>
-    <%= render "shared/lead_form",
-          cities: @cities,
-          selected_city_id: selected_city&.id,
-          submit_label: "Отправить заявку" %>
   </div>
 </section>

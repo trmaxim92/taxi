@@ -1,0 +1,20 @@
+<% tariffs = local_assigns.fetch(:tariffs) { Tariff.active.ordered } %>
+<% note = local_assigns.fetch(:note, true) %>
+<% if tariffs.any? %>
+  <div class="tariff-grid">
+    <% tariffs.each do |tariff| %>
+      <article class="tariff-card">
+        <p class="tariff-label"><%= tariff.name %></p>
+        <p class="tariff-value"><%= tariff.display_value %></p>
+        <% if tariff.description.present? %>
+          <p class="tariff-desc"><%= tariff.description %></p>
+        <% end %>
+      </article>
+    <% end %>
+  </div>
+  <% if note %>
+    <p class="muted tariff-note">
+      Дополнительные комиссии и удержания сервиса Яндекс Такси, налоги и прочие расходы не входят в указанные тарифы парка.
+    </p>
+  <% end %>
+<% end %>

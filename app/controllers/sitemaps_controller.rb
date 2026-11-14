@@ -1,29 +1,33 @@
 class SitemapsController < ApplicationController
   STATIC_PATHS = %w[
     /
-    /kak-ustroitsya/
-    /usloviya-raboty/
-    /rabota-na-svoem-avto/
-    /trebovaniya-k-voditelyam/
+    /o-kompanii/
+    /podklyuchenie/
+    /trebovaniya/
+    /dokumenty/
     /tarify/
+    /rabota-na-svoem-avto/
+    /usloviya-raboty/
     /yandex-pro/
-    /avtomobili-dlya-taksi/
     /rabota-cherez-park/
     /goroda/
+    /faq/
     /kontakty/
+    /privacy/
+    /agreement/
   ].freeze
 
   def index
     @sitemaps = [
       { loc: sitemap_pages_url(format: :xml), lastmod: Page.published.maximum(:updated_at) },
-      { loc: sitemap_cities_url(format: :xml), lastmod: City.indexable.maximum(:updated_at) },
-      { loc: sitemap_vehicles_url(format: :xml), lastmod: Vehicle.indexable.maximum(:updated_at) }
+      { loc: sitemap_cities_url(format: :xml), lastmod: City.indexable.maximum(:updated_at) }
     ]
     render formats: :xml
   end
 
   SKIP_PAGE_TYPES = %w[home cities_index reviews blog_index blog].freeze
   SKIP_PAGE_SLUGS = %w[
+    o-kompanii podklyuchenie trebovaniya dokumenty faq privacy agreement
     kak-ustroitsya usloviya-raboty rabota-na-svoem-avto trebovaniya-k-voditelyam
     tarify yandex-pro avtomobili-dlya-taksi rabota-cherez-park kontakty
     rabota-v-yandex-eda rabota-kurerom
@@ -54,13 +58,6 @@ class SitemapsController < ApplicationController
   def cities
     @entries = City.indexable.select(&:indexable?).map do |city|
       { loc: "#{request.base_url}/goroda/#{city.slug}/", lastmod: city.content_updated_at || city.updated_at }
-    end
-    render template: "sitemaps/urlset", formats: :xml
-  end
-
-  def vehicles
-    @entries = Vehicle.indexable.ordered.map do |vehicle|
-      { loc: "#{request.base_url}/avtomobili-dlya-taksi/#{vehicle.slug}/", lastmod: vehicle.updated_at }
     end
     render template: "sitemaps/urlset", formats: :xml
   end

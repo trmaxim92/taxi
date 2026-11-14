@@ -6,29 +6,37 @@ Rails.application.routes.draw do
   get "sitemap.xml", to: "sitemaps#index", as: :sitemap, defaults: { format: :xml }
   get "sitemap-pages.xml", to: "sitemaps#pages", as: :sitemap_pages, defaults: { format: :xml }
   get "sitemap-cities.xml", to: "sitemaps#cities", as: :sitemap_cities, defaults: { format: :xml }
-  get "sitemap-vehicles.xml", to: "sitemaps#vehicles", as: :sitemap_vehicles, defaults: { format: :xml }
 
   root "home#index"
   post "select_city", to: "city_selections#create", as: :select_city
   delete "select_city", to: "city_selections#destroy"
 
-  get "kak-ustroitsya", to: "pages#show", defaults: { slug: "kak-ustroitsya" }, as: :kak_ustroitsya
+  get "o-kompanii", to: "pages#show", defaults: { slug: "o-kompanii" }, as: :o_kompanii
+  get "podklyuchenie", to: "pages#show", defaults: { slug: "podklyuchenie" }, as: :podklyuchenie
+  get "trebovaniya", to: "pages#show", defaults: { slug: "trebovaniya" }, as: :trebovaniya
+  get "dokumenty", to: "pages#show", defaults: { slug: "dokumenty" }, as: :dokumenty
+  get "privacy", to: "pages#show", defaults: { slug: "privacy" }, as: :privacy
+  get "agreement", to: "pages#show", defaults: { slug: "agreement" }, as: :agreement
+  get "faq", to: "faqs#index", as: :faq
+
+  get "kak-ustroitsya", to: redirect("/podklyuchenie/", status: 301)
+  get "trebovaniya-k-voditelyam", to: redirect("/trebovaniya/", status: 301)
+
   get "usloviya-raboty", to: "pages#show", defaults: { slug: "usloviya-raboty" }, as: :usloviya_raboty
   get "rabota-na-svoem-avto", to: "pages#show", defaults: { slug: "rabota-na-svoem-avto" }, as: :rabota_na_svoem_avto
-  get "trebovaniya-k-voditelyam", to: "pages#show", defaults: { slug: "trebovaniya-k-voditelyam" }, as: :trebovaniya_k_voditelyam
   get "tarify", to: "pages#show", defaults: { slug: "tarify" }, as: :tarify
   get "yandex-pro", to: "pages#show", defaults: { slug: "yandex-pro" }, as: :yandex_pro
   get "rabota-cherez-park", to: "pages#show", defaults: { slug: "rabota-cherez-park" }, as: :rabota_cherez_park
   get "kontakty", to: "pages#show", defaults: { slug: "kontakty" }, as: :kontakty
 
-  get "avtomobili-dlya-taksi", to: "vehicles#index", as: :avtomobili_dlya_taksi
-  get "avtomobili-dlya-taksi/:slug", to: "vehicles#show", as: :avtomobil
+  get "avtomobili-dlya-taksi", to: redirect("/rabota-na-svoem-avto/", status: 301)
+  get "avtomobili-dlya-taksi/:slug", to: redirect("/rabota-na-svoem-avto/", status: 301)
 
   # Legacy courier URLs → taxi home / info pages
   get "rabota-v-yandex-eda", to: redirect("/", status: 301)
-  get "rabota-kurerom", to: redirect("/kak-ustroitsya/", status: 301)
-  get "rabota-peshim-kurerom", to: redirect("/trebovaniya-k-voditelyam/", status: 301)
-  get "rabota-velokurerom", to: redirect("/trebovaniya-k-voditelyam/", status: 301)
+  get "rabota-kurerom", to: redirect("/podklyuchenie/", status: 301)
+  get "rabota-peshim-kurerom", to: redirect("/trebovaniya/", status: 301)
+  get "rabota-velokurerom", to: redirect("/trebovaniya/", status: 301)
   get "rabota-avtokurerom", to: redirect("/rabota-na-svoem-avto/", status: 301)
 
   get "otzyvy", to: "reviews#index", as: :otzyvy
@@ -46,7 +54,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     resources :pages, except: :show
-    resources :vehicles, except: :show
+    resources :tariffs, except: :show
     resources :cities, except: :show do
       member do
         post :apply_seo_template
