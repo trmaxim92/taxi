@@ -6,27 +6,35 @@ Rails.application.routes.draw do
   get "sitemap.xml", to: "sitemaps#index", as: :sitemap, defaults: { format: :xml }
   get "sitemap-pages.xml", to: "sitemaps#pages", as: :sitemap_pages, defaults: { format: :xml }
   get "sitemap-cities.xml", to: "sitemaps#cities", as: :sitemap_cities, defaults: { format: :xml }
-  get "sitemap-city-types.xml", to: "sitemaps#city_types", as: :sitemap_city_types, defaults: { format: :xml }
+  get "sitemap-vehicles.xml", to: "sitemaps#vehicles", as: :sitemap_vehicles, defaults: { format: :xml }
 
   root "home#index"
   post "select_city", to: "city_selections#create", as: :select_city
   delete "select_city", to: "city_selections#destroy"
 
-  get "rabota-v-yandex-eda", to: "pages#show", defaults: { slug: "rabota-v-yandex-eda" }, as: :rabota_v_yandex_eda
-  get "rabota-kurerom", to: "pages#show", defaults: { slug: "rabota-kurerom" }, as: :rabota_kurerom
+  get "kak-ustroitsya", to: "pages#show", defaults: { slug: "kak-ustroitsya" }, as: :kak_ustroitsya
   get "usloviya-raboty", to: "pages#show", defaults: { slug: "usloviya-raboty" }, as: :usloviya_raboty
+  get "rabota-na-svoem-avto", to: "pages#show", defaults: { slug: "rabota-na-svoem-avto" }, as: :rabota_na_svoem_avto
+  get "trebovaniya-k-voditelyam", to: "pages#show", defaults: { slug: "trebovaniya-k-voditelyam" }, as: :trebovaniya_k_voditelyam
   get "rabota-cherez-park", to: "pages#show", defaults: { slug: "rabota-cherez-park" }, as: :rabota_cherez_park
   get "kontakty", to: "pages#show", defaults: { slug: "kontakty" }, as: :kontakty
 
-  get "rabota-peshim-kurerom", to: "courier_types#show", defaults: { slug: "rabota-peshim-kurerom" }, as: :rabota_peshim
-  get "rabota-velokurerom", to: "courier_types#show", defaults: { slug: "rabota-velokurerom" }, as: :rabota_velo
-  get "rabota-avtokurerom", to: "courier_types#show", defaults: { slug: "rabota-avtokurerom" }, as: :rabota_auto
+  get "avtomobili-dlya-taksi", to: "vehicles#index", as: :avtomobili_dlya_taksi
+  get "avtomobili-dlya-taksi/:slug", to: "vehicles#show", as: :avtomobil
+
+  # Legacy courier URLs → taxi home / info pages
+  get "rabota-v-yandex-eda", to: redirect("/", status: 301)
+  get "rabota-kurerom", to: redirect("/kak-ustroitsya/", status: 301)
+  get "rabota-peshim-kurerom", to: redirect("/trebovaniya-k-voditelyam/", status: 301)
+  get "rabota-velokurerom", to: redirect("/trebovaniya-k-voditelyam/", status: 301)
+  get "rabota-avtokurerom", to: redirect("/rabota-na-svoem-avto/", status: 301)
 
   get "otzyvy", to: "reviews#index", as: :otzyvy
   get "blog", to: "blog#index", as: :blog
 
   get "goroda", to: "cities#index", as: :goroda
-  get "goroda/:city_slug/:courier_type_slug", to: "city_courier_pages#show", as: :gorod_courier_type
+  get "goroda/:city_slug/:courier_type_slug",
+      to: redirect(status: 301) { |params, _req| "/goroda/#{params[:city_slug]}/" }
   get "goroda/:slug", to: "cities#show", as: :gorod
 
   resources :leads, only: :create
@@ -36,6 +44,7 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#index"
     resources :pages, except: :show
+    resources :vehicles, except: :show
     resources :cities, except: :show do
       member do
         post :apply_seo_template

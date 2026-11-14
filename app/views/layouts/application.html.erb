@@ -13,9 +13,12 @@
     <meta property="og:description" content="<%= seo_meta[:og_description].presence || meta_description %>">
     <meta property="og:type" content="website">
     <meta property="og:url" content="<%= canonical_url %>">
-    <meta property="og:image" content="<%= seo_meta[:og_image].presence || "#{request.base_url}/images/hero-courier-v4.png" %>">
+    <meta property="og:image" content="<%= seo_meta[:og_image].presence || "#{request.base_url}/images/hero-taxi.jpg" %>">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:image" content="<%= seo_meta[:og_image].presence || "#{request.base_url}/images/hero-courier-v4.png" %>">
+    <meta name="twitter:image" content="<%= seo_meta[:og_image].presence || "#{request.base_url}/images/hero-taxi.jpg" %>">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -36,25 +39,22 @@
       </script>
     <% end %>
   </head>
-  <body>
+  <body class="theme-taxi">
     <header class="site-header">
       <div class="container header-inner">
         <a class="brand" href="<%= root_path %>">
-          <span class="brand-mark">Еда</span>
-          <span class="brand-text">Яндекс Еда</span>
+          <span class="brand-mark brand-mark-ya">Я</span>
+          <span class="brand-text">Яндекс Такси</span>
         </a>
         <nav class="nav" aria-label="Основная навигация">
-          <a href="<%= root_path %>#types">Форматы</a>
+          <a href="<%= root_path %>#benefits">Преимущества</a>
           <a href="<%= usloviya_raboty_path %>/">Условия</a>
-          <a href="<%= goroda_path %>/">Города</a>
-          <a href="<%= otzyvy_path %>/">Отзывы</a>
-          <a href="<%= kontakty_path %>/">Контакты</a>
+          <a href="<%= rabota_na_svoem_avto_path %>/">Своё авто</a>
+          <a href="<%= avtomobili_dlya_taksi_path %>/">Автомобили</a>
+          <a href="<%= kak_ustroitsya_path %>/">Как устроиться</a>
         </nav>
         <div class="header-actions">
-          <a class="header-phone" href="tel:<%= (SiteSetting.get('contact_phone', '+78001234567') rescue '+78001234567').to_s.gsub(/[^\d+]/, '') %>">
-            <%= SiteSetting.get("contact_phone", "+7 (800) 123-45-67") rescue "+7 (800) 123-45-67" %>
-          </a>
-          <a class="btn btn-primary btn-sm" href="#lead-form">Оставить заявку</a>
+          <a class="btn btn-primary btn-sm" href="<%= root_path %>#lead-form">Стать водителем</a>
         </div>
       </div>
     </header>
@@ -66,36 +66,45 @@
       <%= yield %>
     </main>
 
-    <footer class="site-footer">
-      <div class="container">
-        <div class="footer-top">
-          <div class="footer-brand">
-            <a class="brand" href="<%= root_path %>">
-              <span class="brand-mark">Еда</span>
-              <span class="brand-text">Яндекс Еда</span>
-            </a>
-            <p>Работа курьером в Яндекс Еде: форматы, города и заявка на подключение.</p>
-          </div>
-          <div class="footer-links">
-            <a href="<%= rabota_kurerom_path %>/">Работа курьером</a>
+    <footer class="site-footer site-footer-taxi">
+      <div class="container footer-taxi">
+        <div class="footer-taxi-top">
+          <a class="brand" href="<%= root_path %>">
+            <span class="brand-mark brand-mark-ya">Я</span>
+            <span class="brand-text">Яндекс Такси</span>
+          </a>
+          <nav class="footer-nav" aria-label="Навигация в подвале">
             <a href="<%= usloviya_raboty_path %>/">Условия работы</a>
-            <a href="<%= otzyvy_path %>/">Отзывы</a>
+            <a href="<%= trebovaniya_k_voditelyam_path %>/">Требования</a>
+            <a href="<%= avtomobili_dlya_taksi_path %>/">Автомобили</a>
             <a href="<%= goroda_path %>/">Города</a>
             <a href="<%= kontakty_path %>/">Контакты</a>
-          </div>
+          </nav>
+        </div>
+
+        <% if park_contacts? || registration_available? %>
           <div class="footer-contacts">
-            <a class="footer-phone" href="tel:<%= (SiteSetting.get('contact_phone', '+78001234567') rescue '+78001234567').to_s.gsub(/[^\d+]/, '') %>">
-              <%= SiteSetting.get("contact_phone", "+7 (800) 123-45-67") rescue "+7 (800) 123-45-67" %>
-            </a>
-            <a href="mailto:<%= SiteSetting.get('contact_email', 'hello@park-dostavka.ru') rescue 'hello@park-dostavka.ru' %>">
-              <%= SiteSetting.get("contact_email", "hello@park-dostavka.ru") rescue "hello@park-dostavka.ru" %>
-            </a>
+            <% if park_phone.present? %>
+              <a href="<%= phone_href %>"><%= park_phone %></a>
+            <% end %>
+            <% if park_telegram.present? %>
+              <a href="<%= telegram_href %>" target="_blank" rel="noopener noreferrer">Telegram</a>
+            <% end %>
+            <% if park_max.present? %>
+              <a href="<%= max_href %>" target="_blank" rel="noopener noreferrer">MAX</a>
+            <% end %>
+            <% if registration_available? %>
+              <%= link_to "Саморегистрация", register_path_for, self_register_link_options.merge(class: "footer-register-link") %>
+            <% end %>
           </div>
-        </div>
-        <div class="footer-bottom">
-          <span>© <%= Time.current.year %> Яндекс Еда</span>
-          <span>Политика конфиденциальности · Обработка персональных данных</span>
-        </div>
+        <% end %>
+
+        <%= render "shared/legal_details" %>
+
+        <p class="footer-disclaimer">
+          Сайт принадлежит партнёрскому таксопарку и не является официальным ресурсом компании Яндекс.
+          Работа рассматривается только на собственном автомобиле водителя. Доход зависит от заказов, города, тарифа и расходов — гарантированную сумму заработка мы не обещаем.
+        </p>
       </div>
     </footer>
   </body>

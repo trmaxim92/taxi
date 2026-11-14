@@ -2,6 +2,8 @@
 set -euo pipefail
 
 export DEBIAN_FRONTEND=noninteractive
+APP_DIR="${APP_DIR:-/opt/taxi}"
+REPO_URL="${REPO_URL:-https://github.com/trmaxim92/taxi.git}"
 
 if ! swapon --show | grep -q .; then
   fallocate -l 2G /swapfile || dd if=/dev/zero of=/swapfile bs=1M count=2048
@@ -18,14 +20,15 @@ if ! command -v docker >/dev/null 2>&1; then
   systemctl enable --now docker
 fi
 
-mkdir -p /opt/eda
-cd /opt/eda
+mkdir -p "$APP_DIR"
+cd "$APP_DIR"
 
 if [ ! -d .git ]; then
-  git clone https://github.com/trmaxim92/eda.git .
+  git clone "$REPO_URL" .
 else
+  git remote set-url origin "$REPO_URL" || true
   git fetch origin
   git reset --hard origin/main
 fi
 
-echo "VPS ready"
+echo "VPS ready at $APP_DIR"

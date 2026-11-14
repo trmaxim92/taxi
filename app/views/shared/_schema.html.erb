@@ -2,17 +2,20 @@
 <%= raw({
   "@context" => "https://schema.org",
   "@type" => "Organization",
-  "name" => "Яндекс Еда — работа курьером",
+  "name" => (SiteSetting.get("legal_name", SiteSetting.get("site_name", "Партнёрский таксопарк")) rescue "Партнёрский таксопарк"),
   "url" => root_url,
+  "description" => "Партнёрский таксопарк: подключение водителей Яндекс Такси на собственном автомобиле. Не официальный сайт Яндекса.",
   "telephone" => (SiteSetting.get("contact_phone", "") rescue ""),
-  "email" => (SiteSetting.get("contact_email", "") rescue "")
-}.to_json) %>
+  "email" => (SiteSetting.get("contact_email", "") rescue ""),
+  "taxID" => (SiteSetting.get("legal_inn", "") rescue ""),
+  "identifier" => (SiteSetting.get("legal_ogrn", "") rescue "")
+}.compact_blank.to_json) %>
 </script>
 <script type="application/ld+json">
 <%= raw({
   "@context" => "https://schema.org",
   "@type" => "WebSite",
-  "name" => "Работа курьером в Яндекс Еде",
+  "name" => "Работа водителем в Яндекс Такси — партнёрский таксопарк",
   "url" => root_url,
   "inLanguage" => "ru-RU"
 }.to_json) %>

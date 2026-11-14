@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_11_12_190001) do
+ActiveRecord::Schema[8.1].define(version: 2026_11_14_150001) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -286,6 +286,33 @@ ActiveRecord::Schema[8.1].define(version: 2026_11_12_190001) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["role"], name: "index_users_on_role"
+  end
+
+  create_table "vehicles", force: :cascade do |t|
+    t.string "brand", null: false
+    t.string "model", null: false
+    t.string "slug", null: false
+    t.integer "year_from"
+    t.integer "year_to"
+    t.string "vehicle_class"
+    t.string "tariffs", default: "", null: false
+    t.string "region"
+    t.text "note"
+    t.string "source"
+    t.date "verified_on"
+    t.string "seo_title"
+    t.string "seo_description"
+    t.string "h1"
+    t.string "robots_meta", default: "index,follow"
+    t.boolean "published", default: false, null: false
+    t.boolean "is_indexable", default: false, null: false
+    t.integer "position", default: 0, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["brand", "model"], name: "index_vehicles_on_brand_and_model"
+    t.index ["is_indexable"], name: "index_vehicles_on_is_indexable"
+    t.index ["published"], name: "index_vehicles_on_published"
+    t.index ["slug"], name: "index_vehicles_on_slug", unique: true
   end
 
   add_foreign_key "city_courier_pages", "cities"

@@ -1,11 +1,12 @@
 class SitemapsController < ApplicationController
   STATIC_PATHS = %w[
     /
-    /rabota-v-yandex-eda/
-    /rabota-kurerom/
+    /kak-ustroitsya/
     /usloviya-raboty/
+    /rabota-na-svoem-avto/
+    /trebovaniya-k-voditelyam/
+    /avtomobili-dlya-taksi/
     /rabota-cherez-park/
-    /otzyvy/
     /goroda/
     /kontakty/
   ].freeze
@@ -14,13 +15,17 @@ class SitemapsController < ApplicationController
     @sitemaps = [
       { loc: sitemap_pages_url(format: :xml), lastmod: Page.published.maximum(:updated_at) },
       { loc: sitemap_cities_url(format: :xml), lastmod: City.indexable.maximum(:updated_at) },
-      { loc: sitemap_city_types_url(format: :xml), lastmod: CityCourierPage.indexable.maximum(:updated_at) }
+      { loc: sitemap_vehicles_url(format: :xml), lastmod: Vehicle.indexable.maximum(:updated_at) }
     ]
     render formats: :xml
   end
 
-  # Virtual page_types that already have a dedicated public URL in STATIC_PATHS / routes.
   SKIP_PAGE_TYPES = %w[home cities_index reviews blog_index blog].freeze
+  SKIP_PAGE_SLUGS = %w[
+    kak-ustroitsya usloviya-raboty rabota-na-svoem-avto trebovaniya-k-voditelyam
+    avtomobili-dlya-taksi rabota-cherez-park kontakty
+    rabota-v-yandex-eda rabota-kurerom
+  ].freeze
 
   def pages
     @entries = []
@@ -35,9 +40,9 @@ class SitemapsController < ApplicationController
     end
 
     STATIC_PATHS.each { |path| add_entry.call(path, Time.current) }
-    CourierType.published.find_each { |type| add_entry.call("/#{type.slug}/", type.updated_at) }
     Page.published.where.not(robots_meta: [ "noindex,follow", "noindex,nofollow" ]).find_each do |page|
       next if SKIP_PAGE_TYPES.include?(page.page_type)
+      next if SKIP_PAGE_SLUGS.include?(page.slug)
 
       add_entry.call("/#{page.slug}/", page.updated_at)
     end
@@ -51,9 +56,9 @@ class SitemapsController < ApplicationController
     render template: "sitemaps/urlset", formats: :xml
   end
 
-  def city_types
-    @entries = CityCourierPage.includes(:city, :courier_type).to_a.select(&:indexable?).map do |page|
-      { loc: "#{request.base_url}#{page.public_path}", lastmod: page.updated_at }
+  def vehicles
+    @entries = Vehicle.indexable.ordered.map do |vehicle|
+      { loc: "#{request.base_url}/avtomobili-dlya-taksi/#{vehicle.slug}/", lastmod: vehicle.updated_at }
     end
     render template: "sitemaps/urlset", formats: :xml
   end

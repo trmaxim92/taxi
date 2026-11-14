@@ -1,0 +1,53 @@
+<section class="section">
+  <div class="container">
+    <div class="section-head section-head-row">
+      <div>
+        <p class="eyebrow">Каталог</p>
+        <h1><%= seo_meta[:h1].presence || "Какие автомобили подходят для работы в Яндекс Такси" %></h1>
+        <p class="section-lead">
+          Не каждый автомобиль подходит для работы в Яндекс Такси. Учитываются модель, год выпуска,
+          комплектация, состояние и требования выбранного тарифа. Перед подключением сверяйте данные
+          по актуальному классификатору сервиса.
+        </p>
+      </div>
+    </div>
+
+    <%= form_with url: avtomobili_dlya_taksi_path, method: :get, local: true, class: "vehicle-search" do %>
+      <label class="sr-only" for="vehicle-q">Поиск по марке и модели</label>
+      <input id="vehicle-q" type="search" name="q" value="<%= @q %>" placeholder="Марка или модель, например Kia Rio">
+      <button class="btn btn-primary" type="submit">Найти</button>
+    <% end %>
+
+    <% if @vehicles.any? %>
+      <div class="vehicle-grid">
+        <% @vehicles.each do |vehicle| %>
+          <a class="vehicle-card" href="<%= avtomobil_path(vehicle) %>/">
+            <h2><%= vehicle.display_name %></h2>
+            <% if vehicle.year_label.present? %><p class="vehicle-meta">Годы: <%= vehicle.year_label %></p><% end %>
+            <% if vehicle.vehicle_class.present? %><p class="vehicle-meta">Класс: <%= vehicle.vehicle_class %></p><% end %>
+            <% if vehicle.tariff_list.any? %>
+              <p class="vehicle-meta">Тарифы: <%= vehicle.tariff_list.join(", ") %></p>
+            <% end %>
+          </a>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="muted">Пока нет проверенных моделей в каталоге<%= @q.present? ? " по запросу «#{@q}»" : "" %>. Оставьте заявку — подскажем по вашей машине.</p>
+    <% end %>
+
+    <p class="muted vehicle-disclaimer">
+      Список носит справочный характер. Допуск конкретной модели зависит от региона, года выпуска и правил сервиса.
+      Мы не обещаем автоматический допуск без проверки.
+    </p>
+  </div>
+</section>
+
+<section class="section section-soft" id="lead-form">
+  <div class="container form-wrap form-wrap-taxi">
+    <div class="form-intro">
+      <h2>Проверить автомобиль для подключения</h2>
+      <p>Оставьте контакты — поможем разобраться с требованиями к вашей машине.</p>
+    </div>
+    <%= render "shared/lead_form", cities: City.indexable.ordered, submit_label: "Оставить заявку" %>
+  </div>
+</section>

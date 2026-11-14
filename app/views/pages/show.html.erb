@@ -3,27 +3,33 @@
     <h1><%= @page.h1.presence || @page.title %></h1>
     <% if @page.summary.present? %><p class="lead"><%= @page.summary %></p><% end %>
     <%= sanitize_content(@page.body) %>
+
+    <% if @page.page_type == "contacts" || @page.slug == "kontakty" %>
+      <%= render "shared/park_contacts", title: "Контакты таксопарка" %>
+      <%= render "shared/legal_details" %>
+    <% end %>
   </div>
 </article>
 
 <section class="section section-soft" id="lead-form">
-  <div class="container form-wrap">
+  <div class="container form-wrap form-wrap-taxi">
     <div class="form-intro">
-      <p class="eyebrow">Заявка</p>
-      <h2>Оставить заявку</h2>
-      <p>Укажите контакты — свяжемся и подскажем по подключению.</p>
+      <h2>Подключиться к Яндекс Такси</h2>
+      <p>Оставьте контакты — поможем разобраться с подключением на собственном автомобиле.</p>
       <% if registration_available? %>
-        <p class="cta-row"><a class="btn btn-secondary" href="<%= go_register_path %>">Зарегистрироваться самостоятельно</a></p>
+        <p class="cta-row">
+          <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
+        </p>
       <% end %>
     </div>
-    <%= render "shared/lead_form", cities: @cities, courier_types: @courier_types %>
+    <%= render "shared/lead_form", cities: @cities, submit_label: "Оставить заявку" %>
   </div>
 </section>
 
 <% if @faqs.any? %>
 <section class="section">
   <div class="container narrow">
-    <h2>FAQ</h2>
+    <h2>Частые вопросы</h2>
     <%= render "shared/faq", faqs: @faqs %>
   </div>
 </section>

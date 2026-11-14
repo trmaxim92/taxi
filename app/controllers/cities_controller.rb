@@ -5,9 +5,9 @@ class CitiesController < ApplicationController
     @page = Page.find_by(page_type: "cities_index", published: true)
     set_seo_meta(
       @page,
-      title: @page&.seo_title.presence || "Города, в которых можно работать курьером в Яндекс Еде",
-      description: @page&.seo_description.presence || "Список городов с доступным подключением курьеров к Яндекс Еде. Выберите город и оставьте заявку.",
-      h1: @page&.h1.presence || "Города, в которых можно работать курьером"
+      title: @page&.seo_title.presence || "Города подключения водителей Яндекс Такси",
+      description: @page&.seo_description.presence || "Список городов, где доступно подключение водителей к Яндекс Такси на собственном автомобиле.",
+      h1: @page&.h1.presence || "Работа в Яндекс Такси в городах России"
     )
   end
 
@@ -15,12 +15,14 @@ class CitiesController < ApplicationController
     @city = City.published.find_by!(slug: params[:slug])
     raise ActiveRecord::RecordNotFound unless @city.indexable?
 
-    @courier_types = @city.available_courier_types.merge(CourierType.published).ordered
-    @city_courier_pages = @city.city_courier_pages.indexable.includes(:courier_type)
     @referral_link = current_referral_link(city: @city)
     @faqs = Array(@city.faq_items)
+    @cities = City.indexable.ordered
     set_seo_meta(
       @city,
+      title: @city.seo_title.presence || "Работа в Яндекс Такси #{@city.name_prepositional} — подключение водителей",
+      description: @city.seo_description.presence || "Подключение водителей Яндекс Такси #{@city.name_prepositional} на собственном автомобиле. Оставьте заявку онлайн.",
+      h1: @city.h1.presence || "Работа в Яндекс Такси #{@city.name_prepositional}",
       robots: @city.indexable? ? (@city.robots_meta.presence || "index,follow") : "noindex,follow"
     )
   end

@@ -2,8 +2,8 @@
   <div class="container">
     <div class="section-head">
       <p class="eyebrow">География</p>
-      <h1>Города, в которых можно работать курьером</h1>
-      <p class="lead">Активные города с подтверждённым подключением. Выберите свой — откроются условия и форматы доставки.</p>
+      <h1><%= seo_meta[:h1].presence || "Работа в Яндекс Такси в городах России" %></h1>
+      <p class="lead">Города с доступным подключением водителей на собственном автомобиле. Выберите свой — откроются условия и форма заявки.</p>
     </div>
 
     <div class="city-catalog-toolbar">
@@ -40,20 +40,19 @@
 </section>
 
 <section class="section section-soft" id="lead-form">
-  <div class="container form-wrap">
+  <div class="container form-wrap form-wrap-taxi">
     <div class="form-intro">
-      <p class="eyebrow">Заявка</p>
       <h2>Не нашли город?</h2>
-      <p>Оставьте контакты — уточним, доступно ли подключение в вашем городе.</p>
+      <p>Оставьте контакты — уточним, доступно ли подключение водителей в вашем городе.</p>
       <% if registration_available? %>
         <p class="cta-row">
-          <a class="btn btn-primary" href="<%= go_register_path %>">Зарегистрироваться самостоятельно</a>
+          <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
         </p>
       <% end %>
     </div>
     <%= render "shared/lead_form",
-          cities: City.published.available.ordered,
-          courier_types: CourierType.published.ordered,
-          selected_city_id: selected_city&.id %>
+          cities: City.indexable.ordered,
+          selected_city_id: selected_city&.id,
+          submit_label: "Оставить заявку" %>
   </div>
 </section>

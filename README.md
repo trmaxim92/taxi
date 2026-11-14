@@ -1,64 +1,50 @@
-# eda
+# taxi
 
-# Park Dostavka (MVP)
-
-SEO-сайт для привлечения курьеров в Яндекс Еду через парк-партнёр **park-dostavka.ru**.
+SEO-сайт партнёрского таксопарка: привлечение водителей **Яндекс Такси** на собственном автомобиле.
 
 Стек: Ruby 3.4 · Rails 8 · PostgreSQL · Hotwire/Stimulus · Devise · Pundit · Propshaft.
 
-Сайт **не является** официальным сайтом Яндекса.
+Сайт **не является** официальным сайтом Яндекса. Аренда авто не предлагается. Гарантированный доход не обещается.
 
-## Быстрый запуск (Docker, рекомендуется на Windows)
+## Быстрый запуск (Docker)
 
 ```bash
 docker compose up --build
 ```
 
-Откройте:
-
 - сайт: http://localhost:3000/
 - админка: http://localhost:3000/admin/
-- логин создаётся в `db/seeds.rb` (смените пароль после первого входа)
+
+После старта:
+
+```bash
+docker compose exec web bundle exec rails db:migrate
+docker compose exec web bundle exec rails taxi:seed_content
+```
 
 ## Основные URL
 
 - `/` — главная
-- `/rabota-peshim-kurerom/`, `/rabota-velokurerom/`, `/rabota-avtokurerom/`
-- `/goroda/`, `/goroda/moskva/`
-- `/go/register` — реферальный redirect со статистикой
+- `/kak-ustroitsya/`, `/usloviya-raboty/`, `/rabota-na-svoem-avto/`, `/trebovaniya-k-voditelyam/`
+- `/avtomobili-dlya-taksi/`
+- `/goroda/`
+- `/go/register` — реферальный redirect (или `self_register_url` в настройках)
 - `/sitemap.xml`, `/robots.txt`
 
-## SSH-ключ для доступа к серверу без пароля
+## Настройки парка (admin → Настройки)
 
-На этой машине уже есть ключ:
+- `contact_phone`, `contact_telegram`, `contact_max`, `contact_email`
+- `self_register_url` — ссылка на форму саморегистрации
+- `legal_ogrn`, `legal_inn`, `legal_kpp`, `legal_registered_on`, `legal_name`
 
-- приватный: `C:\Users\Maxim Tryapkin\.ssh\id_ed25519`
-- публичный: `C:\Users\Maxim Tryapkin\.ssh\id_ed25519.pub`
-
-Публичный ключ (добавить на сервер в `~/.ssh/authorized_keys`):
-
-```text
-ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7k+I0Bb/fg021Qls7ZpA2HdKfYxmNjmBOuKRLP7DQZ maxim tryapkin@LAPTOP-FPU4OGUI
-```
-
-На сервере:
+## Production (Docker)
 
 ```bash
-mkdir -p ~/.ssh
-chmod 700 ~/.ssh
-echo 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIB7k+I0Bb/fg021Qls7ZpA2HdKfYxmNjmBOuKRLP7DQZ maxim tryapkin@LAPTOP-FPU4OGUI' >> ~/.ssh/authorized_keys
-chmod 600 ~/.ssh/authorized_keys
+docker compose -f docker-compose.prod.yml up -d --build
 ```
 
-Проверка с Windows:
+Нужны переменные: `POSTGRES_PASSWORD`, `RAILS_MASTER_KEY`, `SECRET_KEY_BASE`, `APP_HOST`, `ADMIN_PASSWORD`.
 
-```powershell
-ssh user@YOUR_SERVER_IP
-```
+## Репозиторий
 
-## Важно по рефералкам
-
-Кнопка самостоятельной регистрации появляется только при активной доверенной ссылке.
-По умолчанию в seed стоит заглушка `https://eda.yandex.ru/` — замените на реальную ссылку парка в админке.
-
-Переход ≠ регистрация. В статистике раздельно считаются клики и заявки.
+https://github.com/trmaxim92/taxi

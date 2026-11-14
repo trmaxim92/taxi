@@ -1,0 +1,30 @@
+<h1>Автомобили <%= link_to "Добавить", new_admin_vehicle_path, class: "btn btn-primary" %></h1>
+<table class="admin-table">
+  <thead>
+    <tr>
+      <th>Марка / модель</th>
+      <th>Годы</th>
+      <th>Класс</th>
+      <th>Источник</th>
+      <th>Публ.</th>
+      <th>Index</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @vehicles.each do |vehicle| %>
+      <tr>
+        <td><%= vehicle.display_name %><br><small><%= vehicle.slug %></small></td>
+        <td><%= vehicle.year_label %></td>
+        <td><%= vehicle.vehicle_class %></td>
+        <td><%= vehicle.source %><% if vehicle.verified_on.present? %><br><small><%= vehicle.verified_on %></small><% end %></td>
+        <td><%= vehicle.published? ? "да" : "нет" %></td>
+        <td><%= vehicle.is_indexable? ? "да" : "нет" %></td>
+        <td>
+          <%= link_to "Изменить", edit_admin_vehicle_path(vehicle) %>
+          <%= button_to "Удалить", admin_vehicle_path(vehicle), method: :delete, form: { data: { turbo_confirm: "Удалить?" } } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

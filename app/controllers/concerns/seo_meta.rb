@@ -9,7 +9,7 @@ module SeoMeta
 
   def set_seo_meta(record = nil, **overrides)
     @seo_meta = {
-      title: overrides[:title] || record&.try(:seo_title).presence || record&.try(:title) || SiteSetting.get("default_seo_title", "Работа курьером в Яндекс Еде"),
+      title: overrides[:title] || record&.try(:seo_title).presence || record&.try(:title) || SiteSetting.get("default_seo_title", "Работа в Яндекс Такси на своем автомобиле"),
       description: overrides[:description] || record&.try(:seo_description).presence || SiteSetting.get("default_seo_description", ""),
       h1: overrides[:h1] || record&.try(:h1).presence || record&.try(:title),
       canonical: overrides[:canonical] || record&.try(:canonical_url).presence || canonical_from_request,
@@ -22,7 +22,7 @@ module SeoMeta
 
   def seo_meta
     @seo_meta || {
-      title: SiteSetting.get("default_seo_title", "Работа курьером в Яндекс Еде"),
+      title: SiteSetting.get("default_seo_title", "Работа в Яндекс Такси на своем автомобиле"),
       description: SiteSetting.get("default_seo_description", ""),
       robots: "index,follow",
       canonical: canonical_from_request

@@ -16,11 +16,27 @@ module ApplicationHelper
   end
 
   def register_path_for(city: nil, courier_type: nil)
-    go_register_path(city_id: city&.id, courier_type_id: courier_type&.id)
+    self_register_href(city: city, courier_type: courier_type)
   end
 
   def registration_available?(city: nil, courier_type: nil)
-    current_referral_link(city: city, courier_type: courier_type).present?
+    self_register_href(city: city, courier_type: courier_type).present?
+  end
+
+  def self_register_link_options
+    opts = {
+      class: "btn btn-primary",
+      data: {
+        controller: "analytics",
+        analytics_event_value: "self_register_click",
+        action: "click->analytics#track"
+      }
+    }
+    if self_register_external?
+      opts[:target] = "_blank"
+      opts[:rel] = "noopener noreferrer"
+    end
+    opts
   end
 
   def og_image_url_for(record = nil)
