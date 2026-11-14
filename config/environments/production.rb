@@ -57,13 +57,15 @@ Rails.application.configure do
 
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.default_url_options = {
-    host: ENV.fetch("APP_HOST", "park-dostavka.ru"),
-    protocol: ENV.fetch("APP_PROTOCOL", "http")
+    host: ENV.fetch("APP_HOST", "kosmo-taxi.ru"),
+    protocol: ENV.fetch("APP_PROTOCOL", "https")
   }
 
   config.hosts.clear
-  config.hosts << ENV.fetch("APP_HOST", "park-dostavka.ru")
-  config.hosts << "www.#{ENV.fetch("APP_HOST", "park-dostavka.ru")}"
+  config.hosts << ENV.fetch("APP_HOST", "kosmo-taxi.ru")
+  config.hosts << "www.#{ENV.fetch("APP_HOST", "kosmo-taxi.ru")}"
+  config.hosts << "kosmo-taxi.ru"
+  config.hosts << "www.kosmo-taxi.ru"
   config.hosts << "159.194.242.228"
   config.hosts << "62.113.102.216"
   config.hosts << "localhost"
