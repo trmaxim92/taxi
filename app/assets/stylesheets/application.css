@@ -611,7 +611,7 @@ input, select, textarea {
 .form-wrap:has(.yandex-register),
 .form-wrap-yandex {
   grid-template-columns: 1fr;
-  width: min(500px, 100%);
+  width: min(610px, 100%);
   margin-inline: auto;
 }
 .form-intro { padding-top: 0.4rem; }
