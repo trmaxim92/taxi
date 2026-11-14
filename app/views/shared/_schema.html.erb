@@ -2,9 +2,9 @@
 <%= raw({
   "@context" => "https://schema.org",
   "@type" => "Organization",
-  "name" => (SiteSetting.get("legal_name", SiteSetting.get("site_name", "Партнёрский таксопарк")) rescue "Партнёрский таксопарк"),
+  "name" => (SiteSetting.get("legal_name", SiteSetting.get("site_name", "Космо")) rescue "Космо"),
   "url" => root_url,
-  "description" => "Партнёрский таксопарк: подключение водителей Яндекс Такси на собственном автомобиле. Не официальный сайт Яндекса.",
+  "description" => "Таксопарк Космо: подключение водителей Яндекс Такси на собственном автомобиле. Не официальный сайт Яндекса.",
   "telephone" => (SiteSetting.get("contact_phone", "") rescue ""),
   "email" => (SiteSetting.get("contact_email", "") rescue ""),
   "taxID" => (SiteSetting.get("legal_inn", "") rescue ""),
@@ -15,7 +15,7 @@
 <%= raw({
   "@context" => "https://schema.org",
   "@type" => "WebSite",
-  "name" => "Работа водителем в Яндекс Такси — партнёрский таксопарк",
+  "name" => "Работа водителем в Яндекс Такси — таксопарк Космо",
   "url" => root_url,
   "inLanguage" => "ru-RU"
 }.to_json) %>

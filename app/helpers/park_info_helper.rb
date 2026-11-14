@@ -38,7 +38,7 @@ module ParkInfoHelper
   end
 
   def park_legal_name
-    park_setting("legal_name", "Партнёрский таксопарк")
+    park_setting("legal_name", "Космо")
   end
 
   def park_ogrn

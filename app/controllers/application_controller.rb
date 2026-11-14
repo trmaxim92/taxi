@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
   private
 
   def site_name
-    SiteSetting.get("site_name", "Park Dostavka")
+    SiteSetting.get("site_name", "Космо")
   end
 
   def current_referral_link(city: nil, courier_type: nil)

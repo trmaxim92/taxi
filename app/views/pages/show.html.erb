@@ -5,7 +5,7 @@
     <%= sanitize_content(@page.body) %>
 
     <% if @page.page_type == "contacts" || @page.slug == "kontakty" %>
-      <%= render "shared/park_contacts", title: "Контакты таксопарка" %>
+      <%= render "shared/park_contacts", title: "Контакты таксопарка Космо" %>
       <%= render "shared/legal_details" %>
     <% end %>
   </div>
