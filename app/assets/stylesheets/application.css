@@ -611,7 +611,7 @@ input, select, textarea {
 .form-wrap:has(.yandex-register),
 .form-wrap-yandex {
   grid-template-columns: 1fr;
-  width: min(560px, 100%);
+  width: min(680px, 100%);
   margin-inline: auto;
 }
 .form-intro { padding-top: 0.4rem; }
@@ -1239,26 +1239,25 @@ input, select, textarea {
   overflow: hidden;
   background: #f3f4f6;
   box-shadow: var(--shadow);
+  line-height: 0;
 }
 .yandex-register-frame {
   display: block;
   width: 100%;
-  min-height: 560px;
-  height: clamp(540px, 68vh, 720px);
+  height: 490px;
   border: 0;
   background: #f3f4f6;
 }
 @media (max-width: 720px) {
   .form-wrap:has(.yandex-register),
   .form-wrap-yandex {
-    width: min(100%, 560px);
+    width: 100%;
   }
   .yandex-register-frame-wrap {
     border-radius: 16px;
   }
   .yandex-register-frame {
-    min-height: 580px;
-    height: 70vh;
+    height: 520px;
   }
 }
 .footer-disclaimer {
