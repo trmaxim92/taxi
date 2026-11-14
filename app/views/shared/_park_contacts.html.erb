@@ -29,10 +29,8 @@
         </li>
       <% end %>
     </ul>
-    <% if registration_available? %>
-      <p class="cta-row">
-        <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
-      </p>
-    <% end %>
+    <p class="cta-row">
+      <a class="btn btn-primary" href="<%= root_path %>#lead-form">Регистрация в Яндекс Такси</a>
+    </p>
   </div>
 <% end %>

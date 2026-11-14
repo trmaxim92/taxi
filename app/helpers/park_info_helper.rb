@@ -82,6 +82,13 @@ module ParkInfoHelper
     park_setting("self_register_url")
   end
 
+  def yandex_fleet_form_url
+    park_setting(
+      "yandex_fleet_form_url",
+      "https://forms.fleet.yandex.ru/forms?ref_id=c4baf6a4aa5245af94412b78277e39ef&iframe=true&lang=ru"
+    )
+  end
+
   def self_register_href(city: nil, courier_type: nil)
     return self_register_url_value if self_register_url_value.present?
 

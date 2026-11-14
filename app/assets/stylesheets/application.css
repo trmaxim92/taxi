@@ -1210,6 +1210,30 @@ input, select, textarea {
   font-weight: 600;
   line-height: 1.45;
 }
+.yandex-register {
+  width: 100%;
+}
+.yandex-register-frame-wrap {
+  margin: 0 auto;
+  max-width: 640px;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+.yandex-register-frame {
+  display: block;
+  width: 100%;
+  min-height: 640px;
+  height: 70vh;
+  max-height: 900px;
+  border: 0;
+  background: #fff;
+}
+.form-wrap-taxi .yandex-register-frame-wrap {
+  box-shadow: none;
+}
 .footer-disclaimer {
   margin: 0.85rem 0 0;
   max-width: 52rem;

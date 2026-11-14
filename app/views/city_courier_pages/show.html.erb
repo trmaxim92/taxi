@@ -15,23 +15,10 @@
 </article>
 
 <section class="section section-soft" id="lead-form">
-  <div class="container form-wrap">
-    <div class="form-intro">
-      <p class="eyebrow">Заявка</p>
-      <h2><%= @courier_type.name %> — <%= @city.name %></h2>
-      <% if @referral_link.present? %>
-        <p class="cta-row">
-          <a class="btn btn-secondary" href="<%= register_path_for(city: @city, courier_type: @courier_type) %>">Зарегистрироваться самостоятельно</a>
-        </p>
-      <% else %>
-        <p class="disclaimer">Самостоятельная регистрация временно недоступна — оставьте заявку.</p>
-      <% end %>
-    </div>
-    <%= render "shared/lead_form",
-          cities: City.published.available.ordered,
-          courier_types: CourierType.published.ordered,
-          selected_city_id: @city.id,
-          selected_courier_type_id: @courier_type.id %>
+  <div class="container form-wrap form-wrap-taxi">
+    <%= render "shared/yandex_register_form",
+          heading: "#{@courier_type.name} — #{@city.name}",
+          lead: "Пройдите регистрацию в форме Яндекс." %>
   </div>
 </section>
 

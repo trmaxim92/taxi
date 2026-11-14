@@ -15,6 +15,7 @@ namespace :taxi do
       "contact_max" => "",
       "contact_email" => "",
       "self_register_url" => "",
+      "yandex_fleet_form_url" => "https://forms.fleet.yandex.ru/forms?ref_id=c4baf6a4aa5245af94412b78277e39ef&iframe=true&lang=ru",
       "default_seo_title" => "Подключение к Яндекс Такси на собственном автомобиле — Таксопарк Космо",
       "default_seo_description" => "Работайте с заказами Яндекс Такси через Таксопарк Космо. Комиссия парка 2% с заказа и банковская комиссия 1% при выводе средств."
     }.each do |key, value|

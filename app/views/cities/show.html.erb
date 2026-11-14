@@ -39,19 +39,9 @@
 
 <section class="section section-soft" id="lead-form">
   <div class="container form-wrap form-wrap-taxi">
-    <div class="form-intro">
-      <h2>Заявка <%= @city.name_prepositional %></h2>
-      <p>Укажите контакты — в Таксопарке Космо подскажем по подключению водителя <%= @city.name_prepositional %>.</p>
-      <% if registration_available?(city: @city) %>
-        <p class="cta-row">
-          <%= link_to "Зарегистрироваться самостоятельно", register_path_for(city: @city), self_register_link_options %>
-        </p>
-      <% end %>
-    </div>
-    <%= render "shared/lead_form",
-          cities: @cities,
-          selected_city_id: @city.id,
-          submit_label: "Оставить заявку" %>
+    <%= render "shared/yandex_register_form",
+          heading: "Подключение #{@city.name_prepositional}",
+          lead: "Заполните форму регистрации Яндекс, чтобы подключиться #{@city.name_prepositional} на собственном автомобиле." %>
   </div>
 </section>
 

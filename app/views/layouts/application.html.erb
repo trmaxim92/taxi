@@ -89,7 +89,7 @@
 
         <p class="footer-tagline">Таксопарк Космо — подключение водителей к заказам Яндекс Такси на собственных автомобилях.</p>
 
-        <% if park_contacts? || registration_available? %>
+        <% if park_contacts? %>
           <div class="footer-contacts">
             <% if park_phone.present? %>
               <a href="<%= phone_href %>"><%= park_phone %></a>
@@ -100,11 +100,11 @@
             <% if park_max.present? %>
               <a href="<%= max_href %>" target="_blank" rel="noopener noreferrer">MAX</a>
             <% end %>
-            <% if registration_available? %>
-              <%= link_to "Саморегистрация", register_path_for, self_register_link_options.merge(class: "footer-register-link") %>
-            <% end %>
           </div>
         <% end %>
+        <p class="cta-row">
+          <a class="btn btn-primary btn-sm footer-register-link" href="<%= root_path %>#lead-form">Регистрация в Яндекс Такси</a>
+        </p>
 
         <%= render "shared/legal_details" %>
 

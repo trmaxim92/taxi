@@ -23,13 +23,8 @@
 
 <section class="section section-soft" id="lead-form">
   <div class="container form-wrap form-wrap-taxi">
-    <div class="form-intro">
-      <h2>Остались вопросы?</h2>
-      <p>Оставьте заявку — менеджер расскажет об условиях сотрудничества и поможет с подключением.</p>
-    </div>
-    <%= render "shared/lead_form",
-          cities: City.indexable.ordered,
-          selected_city_id: selected_city&.id,
-          submit_label: "Отправить заявку" %>
+    <%= render "shared/yandex_register_form",
+          heading: "Остались вопросы?",
+          lead: "Можно сразу пройти регистрацию в Яндекс через форму ниже." %>
   </div>
 </section>

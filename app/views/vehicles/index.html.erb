@@ -76,10 +76,6 @@
 
 <section class="section section-soft" id="lead-form">
   <div class="container form-wrap form-wrap-taxi">
-    <div class="form-intro">
-      <h2>Проверить автомобиль для подключения</h2>
-      <p>Оставьте контакты — в Таксопарке Космо подскажем по требованиям к вашей машине.</p>
-    </div>
-    <%= render "shared/lead_form", cities: City.indexable.ordered, submit_label: "Оставить заявку" %>
+    <%= render "shared/yandex_register_form" %>
   </div>
 </section>

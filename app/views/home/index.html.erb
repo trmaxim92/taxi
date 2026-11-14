@@ -4,7 +4,7 @@
     <div class="hero-copy">
       <p class="brand-hero">Таксопарк Космо</p>
       <h1>Подключение к Яндекс Такси на собственном автомобиле</h1>
-      <p class="lead">Работайте с заказами Яндекс Такси через Таксопарк Космо. Понятные условия сотрудничества, комиссия парка <%= park_commission_percent %>% с заказа и банковская комиссия <%= withdrawal_fee_percent %>% при выводе средств. Оставьте заявку и узнайте условия подключения в вашем городе.</p>
+      <p class="lead">Работайте с заказами Яндекс Такси через Таксопарк Космо. Понятные условия сотрудничества, комиссия парка <%= park_commission_percent %>% с заказа и банковская комиссия <%= withdrawal_fee_percent %>% при выводе средств. Пройдите регистрацию и узнайте условия подключения в вашем городе.</p>
       <ul class="hero-points">
         <li><%= park_commission_percent %>% — комиссия таксопарка с заказа</li>
         <li><%= withdrawal_fee_percent %>% — банковская комиссия при выводе</li>
@@ -22,19 +22,9 @@
 
 <section class="section section-lead-early" id="lead-form">
   <div class="container form-wrap form-wrap-taxi">
-    <div class="form-intro">
-      <h2>Заявка на подключение</h2>
-      <p>Оставьте контакты — менеджер расскажет об условиях и поможет пройти регистрацию.</p>
-      <% if registration_available? %>
-        <p class="cta-row">
-          <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
-        </p>
-      <% end %>
-    </div>
-    <%= render "shared/lead_form",
-          cities: @cities,
-          selected_city_id: selected_city&.id,
-          submit_label: "Отправить заявку" %>
+    <%= render "shared/yandex_register_form",
+          heading: "Подключиться к Яндекс Такси",
+          lead: "Заполните форму регистрации Яндекс. Подключение проходит напрямую — без заявки менеджеру на сайте." %>
   </div>
 </section>
 
@@ -92,7 +82,7 @@
       </article>
       <article class="benefit-item">
         <h3>Подключение онлайн</h3>
-        <p>Оставьте заявку на сайте. Менеджер свяжется с вами, уточнит город и расскажет о порядке подключения.</p>
+        <p>Пройдите регистрацию в форме Яндекс на сайте. Подключение выполняется напрямую через сервис.</p>
       </article>
       <article class="benefit-item">
         <h3>Помощь менеджера</h3>
@@ -112,8 +102,8 @@
             <li>
               <span class="how-num">1</span>
               <div>
-                <strong>Оставьте заявку</strong>
-                <p>Укажите имя, телефон и город.</p>
+                <strong>Пройдите регистрацию</strong>
+                <p>Заполните форму Яндекс на сайте.</p>
               </div>
             </li>
             <li>
@@ -228,8 +218,8 @@
   <div class="container join-inner">
     <div class="join-copy">
       <h2>Ваш автомобиль — ваши возможности</h2>
-      <p>Хотите выполнять заказы Яндекс Такси на собственном автомобиле? Подключитесь через Таксопарк Космо. Оставьте заявку, чтобы узнать условия сотрудничества и получить помощь на этапе регистрации.</p>
-      <a class="btn btn-primary btn-lg" href="#lead-form">Оставить заявку на подключение</a>
+      <p>Хотите выполнять заказы Яндекс Такси на собственном автомобиле? Подключитесь через Таксопарк Космо. Пройдите регистрацию в форме Яндекс ниже на странице.</p>
+      <a class="btn btn-primary btn-lg" href="#lead-form">Подключиться к Яндекс Такси</a>
     </div>
     <div class="join-media">
       <img src="/images/join-skyline.png" alt="" width="1200" height="400">

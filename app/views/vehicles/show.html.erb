@@ -40,15 +40,8 @@
 
 <section class="section section-soft" id="lead-form">
   <div class="container form-wrap form-wrap-taxi">
-    <div class="form-intro">
-      <h2>Подключить <%= @vehicle.display_name %></h2>
-      <p>Оставьте заявку — подскажем по документам и порядку регистрации.</p>
-      <% if registration_available? %>
-        <p class="cta-row">
-          <%= link_to "Зарегистрироваться самостоятельно", register_path_for, self_register_link_options %>
-        </p>
-      <% end %>
-    </div>
-    <%= render "shared/lead_form", cities: @cities, submit_label: "Оставить заявку" %>
+    <%= render "shared/yandex_register_form",
+          heading: "Подключить #{@vehicle.display_name}",
+          lead: "Пройдите регистрацию в форме Яндекс, чтобы подключиться на своём автомобиле." %>
   </div>
 </section>
