@@ -31,15 +31,17 @@ services:
       DATABASE_URL: postgres://park:${POSTGRES_PASSWORD}@db:5432/park_dostavka_production
       RAILS_MASTER_KEY: ${RAILS_MASTER_KEY}
       SECRET_KEY_BASE: ${SECRET_KEY_BASE}
-      APP_HOST: ${APP_HOST:-159.194.242.228}
+      APP_HOST: ${APP_HOST:-62.113.102.216}
+      APP_PROTOCOL: ${APP_PROTOCOL:-http}
+      FORCE_SSL: ${FORCE_SSL:-false}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       RAILS_MAX_THREADS: "3"
       WEB_CONCURRENCY: "0"
     ports:
-      - "127.0.0.1:3000:3000"
+      - "80:3000"
     volumes:
       - park_storage:/rails/storage
-    mem_limit: 512m
+    mem_limit: 700m
 
 volumes:
   park_pg_data:

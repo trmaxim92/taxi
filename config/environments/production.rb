@@ -65,6 +65,7 @@ Rails.application.configure do
   config.hosts << ENV.fetch("APP_HOST", "park-dostavka.ru")
   config.hosts << "www.#{ENV.fetch("APP_HOST", "park-dostavka.ru")}"
   config.hosts << "159.194.242.228"
+  config.hosts << "62.113.102.216"
   config.hosts << "localhost"
   config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
