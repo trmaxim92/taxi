@@ -5,6 +5,8 @@ class SitemapsController < ApplicationController
     /usloviya-raboty/
     /rabota-na-svoem-avto/
     /trebovaniya-k-voditelyam/
+    /tarify/
+    /yandex-pro/
     /avtomobili-dlya-taksi/
     /rabota-cherez-park/
     /goroda/
@@ -23,7 +25,7 @@ class SitemapsController < ApplicationController
   SKIP_PAGE_TYPES = %w[home cities_index reviews blog_index blog].freeze
   SKIP_PAGE_SLUGS = %w[
     kak-ustroitsya usloviya-raboty rabota-na-svoem-avto trebovaniya-k-voditelyam
-    avtomobili-dlya-taksi rabota-cherez-park kontakty
+    tarify yandex-pro avtomobili-dlya-taksi rabota-cherez-park kontakty
     rabota-v-yandex-eda rabota-kurerom
   ].freeze
 

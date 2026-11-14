@@ -17,23 +17,27 @@
     <ol class="city-steps">
       <li>Проверьте, подходит ли ваш автомобиль для выбранного тарифа.</li>
       <li>Подготовьте документы водителя и на автомобиль.</li>
-      <li>Оставьте заявку или зарегистрируйтесь самостоятельно.</li>
+      <li>Оставьте заявку в таксопарк Космо или зарегистрируйтесь самостоятельно.</li>
       <li>Пройдите подключение и начните принимать заказы в Яндекс Про.</li>
     </ol>
 
     <% if @city.connection_conditions.present? %>
-      <h2>Условия подключения</h2>
+      <h2>Региональные условия подключения</h2>
       <%= simple_format(@city.connection_conditions) %>
     <% end %>
     <% if @city.work_features.present? %>
-      <h2>Особенности работы</h2>
+      <h2>Особенности работы <%= @city.name_prepositional %></h2>
       <%= simple_format(@city.work_features) %>
     <% end %>
 
+    <h2>Полезные материалы</h2>
     <div class="city-type-links">
       <a class="text-link" href="<%= usloviya_raboty_path %>/">Условия работы</a>
       <a class="text-link" href="<%= rabota_na_svoem_avto_path %>/">Работа на своём авто</a>
-      <a class="text-link" href="<%= avtomobili_dlya_taksi_path %>/">Автомобили</a>
+      <a class="text-link" href="<%= avtomobili_dlya_taksi_path %>/">Каталог автомобилей</a>
+      <a class="text-link" href="<%= tarify_path %>/">Тарифы</a>
+      <a class="text-link" href="<%= yandex_pro_path %>/">Яндекс Про</a>
+      <a class="text-link" href="<%= trebovaniya_k_voditelyam_path %>/">Требования</a>
       <a class="text-link" href="<%= goroda_path %>/">Все города</a>
     </div>
   </div>
@@ -43,7 +47,7 @@
   <div class="container form-wrap form-wrap-taxi">
     <div class="form-intro">
       <h2>Заявка <%= @city.name_prepositional %></h2>
-      <p>Укажите контакты — подскажем по подключению водителя <%= @city.name_prepositional %>.</p>
+      <p>Укажите контакты — в таксопарке Космо подскажем по подключению водителя <%= @city.name_prepositional %>.</p>
       <% if registration_available?(city: @city) %>
         <p class="cta-row">
           <%= link_to "Зарегистрироваться самостоятельно", register_path_for(city: @city), self_register_link_options %>

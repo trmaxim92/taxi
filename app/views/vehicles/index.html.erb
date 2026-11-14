@@ -6,15 +6,35 @@
         <h1><%= seo_meta[:h1].presence || "Какие автомобили подходят для работы в Яндекс Такси" %></h1>
         <p class="section-lead">
           Не каждый автомобиль подходит для работы в Яндекс Такси. Учитываются модель, год выпуска,
-          комплектация, состояние и требования выбранного тарифа. Перед подключением сверяйте данные
-          по актуальному классификатору сервиса.
+          комплектация, состояние и требования выбранного тарифа. В каталог попадают только модели
+          с источником сведений и датой проверки — без выдуманных допусков.
         </p>
       </div>
     </div>
 
-    <%= form_with url: avtomobili_dlya_taksi_path, method: :get, local: true, class: "vehicle-search" do %>
-      <label class="sr-only" for="vehicle-q">Поиск по марке и модели</label>
-      <input id="vehicle-q" type="search" name="q" value="<%= @q %>" placeholder="Марка или модель, например Kia Rio">
+    <%= form_with url: avtomobili_dlya_taksi_path, method: :get, local: true, class: "vehicle-search vehicle-filters" do %>
+      <label class="sr-only" for="vehicle-q">Поиск</label>
+      <input id="vehicle-q" type="search" name="q" value="<%= @q %>" placeholder="Марка или модель">
+
+      <label class="sr-only" for="vehicle-brand">Марка</label>
+      <select id="vehicle-brand" name="brand">
+        <option value="">Все марки</option>
+        <% @brands.each do |brand| %>
+          <option value="<%= brand %>" <%= "selected" if @brand == brand %>><%= brand %></option>
+        <% end %>
+      </select>
+
+      <label class="sr-only" for="vehicle-year">Год</label>
+      <input id="vehicle-year" type="number" name="year" value="<%= @year %>" placeholder="Год выпуска" min="1990" max="<%= Date.current.year + 1 %>">
+
+      <label class="sr-only" for="vehicle-tariff">Тариф</label>
+      <select id="vehicle-tariff" name="tariff">
+        <option value="">Все тарифы</option>
+        <% @tariffs.each do |tariff| %>
+          <option value="<%= tariff %>" <%= "selected" if @tariff == tariff %>><%= tariff %></option>
+        <% end %>
+      </select>
+
       <button class="btn btn-primary" type="submit">Найти</button>
     <% end %>
 
@@ -28,16 +48,28 @@
             <% if vehicle.tariff_list.any? %>
               <p class="vehicle-meta">Тарифы: <%= vehicle.tariff_list.join(", ") %></p>
             <% end %>
+            <% if vehicle.verified_on.present? %>
+              <p class="vehicle-meta">Проверено: <%= l(vehicle.verified_on) %></p>
+            <% end %>
           </a>
         <% end %>
       </div>
     <% else %>
-      <p class="muted">Пока нет проверенных моделей в каталоге<%= @q.present? ? " по запросу «#{@q}»" : "" %>. Оставьте заявку — подскажем по вашей машине.</p>
+      <div class="vehicle-empty">
+        <h2>Каталог пока без опубликованных моделей</h2>
+        <p>
+          Мы не показываем непроверенные автомобили. Как только модель будет сверена с актуальным
+          классификатором сервиса (источник + дата проверки), она появится здесь.
+        </p>
+        <p class="cta-row">
+          <a class="btn btn-primary" href="#lead-form">Проверить мой автомобиль</a>
+          <a class="text-link" href="<%= rabota_na_svoem_avto_path %>/">Работа на своём авто</a>
+        </p>
+      </div>
     <% end %>
 
     <p class="muted vehicle-disclaimer">
       Список носит справочный характер. Допуск конкретной модели зависит от региона, года выпуска и правил сервиса.
-      Мы не обещаем автоматический допуск без проверки.
     </p>
   </div>
 </section>
@@ -46,7 +78,7 @@
   <div class="container form-wrap form-wrap-taxi">
     <div class="form-intro">
       <h2>Проверить автомобиль для подключения</h2>
-      <p>Оставьте контакты — поможем разобраться с требованиями к вашей машине.</p>
+      <p>Оставьте контакты — в таксопарке Космо подскажем по требованиям к вашей машине.</p>
     </div>
     <%= render "shared/lead_form", cities: City.indexable.ordered, submit_label: "Оставить заявку" %>
   </div>

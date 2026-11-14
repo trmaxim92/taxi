@@ -1,4 +1,8 @@
-kosmo-taxi.ru, www.kosmo-taxi.ru {
+www.kosmo-taxi.ru {
+	redir https://kosmo-taxi.ru{uri} permanent
+}
+
+kosmo-taxi.ru {
 	encode gzip
 	reverse_proxy web:3000
 	header {

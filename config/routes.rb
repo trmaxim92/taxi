@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get "usloviya-raboty", to: "pages#show", defaults: { slug: "usloviya-raboty" }, as: :usloviya_raboty
   get "rabota-na-svoem-avto", to: "pages#show", defaults: { slug: "rabota-na-svoem-avto" }, as: :rabota_na_svoem_avto
   get "trebovaniya-k-voditelyam", to: "pages#show", defaults: { slug: "trebovaniya-k-voditelyam" }, as: :trebovaniya_k_voditelyam
+  get "tarify", to: "pages#show", defaults: { slug: "tarify" }, as: :tarify
+  get "yandex-pro", to: "pages#show", defaults: { slug: "yandex-pro" }, as: :yandex_pro
   get "rabota-cherez-park", to: "pages#show", defaults: { slug: "rabota-cherez-park" }, as: :rabota_cherez_park
   get "kontakty", to: "pages#show", defaults: { slug: "kontakty" }, as: :kontakty
 

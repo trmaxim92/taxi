@@ -1,5 +1,7 @@
 class RobotsController < ApplicationController
   def show
+    host = ENV.fetch("APP_HOST", request.host)
+    base = "#{request.scheme}://#{host}"
     render plain: <<~ROBOTS
       User-agent: *
       Allow: /
@@ -8,7 +10,7 @@ class RobotsController < ApplicationController
       Disallow: /leads
       Disallow: /users/
 
-      Sitemap: #{request.base_url}/sitemap.xml
+      Sitemap: #{base}/sitemap.xml
     ROBOTS
   end
 end

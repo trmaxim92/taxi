@@ -12,6 +12,20 @@ class Vehicle < ApplicationRecord
     term = "%#{q.to_s.strip.downcase}%"
     where("LOWER(brand) LIKE :q OR LOWER(model) LIKE :q OR LOWER(CONCAT(brand, ' ', model)) LIKE :q", q: term)
   }
+  scope :by_brand, ->(brand) {
+    brand.present? ? where("LOWER(brand) = ?", brand.to_s.strip.downcase) : all
+  }
+  scope :by_year, ->(year) {
+    return all if year.blank?
+
+    y = year.to_i
+    where("(year_from IS NULL OR year_from <= :y) AND (year_to IS NULL OR year_to >= :y)", y: y)
+  }
+  scope :by_tariff, ->(tariff) {
+    return all if tariff.blank?
+
+    where("LOWER(tariffs) LIKE ?", "%#{tariff.to_s.strip.downcase}%")
+  }
 
   before_validation :generate_slug, if: -> { slug.blank? && brand.present? && model.present? }
 
@@ -37,6 +51,14 @@ class Vehicle < ApplicationRecord
 
   def indexable?
     published? && is_indexable? && source.present? && verified_on.present?
+  end
+
+  def self.brand_options
+    indexable.distinct.order(:brand).pluck(:brand)
+  end
+
+  def self.tariff_options
+    indexable.pluck(:tariffs).flat_map { |t| t.to_s.split(/[,;]/) }.map(&:strip).reject(&:blank?).uniq.sort
   end
 
   private

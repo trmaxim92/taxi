@@ -12,7 +12,7 @@ class Lead < ApplicationRecord
     archived: 6
   }, default: :new_lead
 
-  validates :name, :phone, presence: true
+  validates :name, :phone, :city_id, presence: true
   validates :consent, acceptance: { accept: true }
   validates :phone, format: { with: /\A[\d\s\+\-\(\)]{10,20}\z/ }
 
